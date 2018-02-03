@@ -1,0 +1,537 @@
+fileFormatVersion: 2
+guid: 7d630e4e9e4d3dd4587cb5439e898f1f
+timeCreated: 1517079916
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: Lava_sprite_0
+    21300002: Lava_sprite_1
+    21300004: Lava_sprite_2
+    21300006: Lava_sprite_3
+    21300008: Lava_sprite_4
+    21300010: Lava_sprite_5
+    21300012: Lava_sprite_6
+    21300014: Lava_sprite_7
+    21300016: Lava_sprite_8
+    21300018: Lava_sprite_9
+    21300020: Lava_sprite_10
+    21300022: Lava_sprite_11
+    21300024: Lava_sprite_12
+    21300026: Lava_sprite_13
+    21300028: Lava_sprite_14
+    21300030: Lava_sprite_15
+    21300032: Lava_sprite_16
+    21300034: Lava_sprite_17
+    21300036: Lava_sprite_18
+    21300038: Lava_sprite_19
+    21300040: Lava_sprite_20
+    21300042: Lava_sprite_21
+    21300044: Lava_sprite_22
+    21300046: Lava_sprite_23
+    21300048: Lava_sprite_24
+    21300050: Lava_sprite_25
+    21300052: Lava_sprite_26
+    21300054: Lava_sprite_27
+    21300056: Lava_sprite_28
+    21300058: Lava_sprite_29
+  externalObjects: {}
+  serializedVersion: 4
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: -1
+    aniso: -1
+    mipBias: -1
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 3000
+  alphaUsage: 2
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - buildTarget: DefaultTexturePlatform
+    maxTextureSize: 1024
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  - buildTarget: Standalone
+    maxTextureSize: 1024
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Lava_sprite_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2072
+        width: 518
+        height: 518
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Lava_sprite_1
+      rect:
+        serializedVersion: 2
+        x: 518
+        y: 2072
+        width: 518
+        height: 518
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Lava_sprite_2
+      rect:
+        serializedVersion: 2
+        x: 1036
+        y: 2072
+        width: 518
+        height: 518
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Lava_sprite_3
+      rect:
+        serializedVersion: 2
+        x: 1554
+        y: 2072
+        width: 518
+        height: 518
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Lava_sprite_4
+      rect:
+        serializedVersion: 2
+        x: 2072
+        y: 2072
+        width: 518
+        height: 518
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Lava_sprite_5
+      rect:
+        serializedVersion: 2
+        x: 2590
+        y: 2072
+        width: 518
+        height: 518
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Lava_sprite_6
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1554
+        width: 518
+        height: 518
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Lava_sprite_7
+      rect:
+        serializedVersion: 2
+        x: 518
+        y: 1554
+        width: 518
+        height: 518
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Lava_sprite_8
+      rect:
+        serializedVersion: 2
+        x: 1036
+        y: 1554
+        width: 518
+        height: 518
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Lava_sprite_9
+      rect:
+        serializedVersion: 2
+        x: 1554
+        y: 1554
+        width: 518
+        height: 518
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Lava_sprite_10
+      rect:
+        serializedVersion: 2
+        x: 2072
+        y: 1554
+        width: 518
+        height: 518
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Lava_sprite_11
+      rect:
+        serializedVersion: 2
+        x: 2590
+        y: 1554
+        width: 518
+        height: 518
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Lava_sprite_12
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1036
+        width: 518
+        height: 518
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Lava_sprite_13
+      rect:
+        serializedVersion: 2
+        x: 518
+        y: 1036
+        width: 518
+        height: 518
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Lava_sprite_14
+      rect:
+        serializedVersion: 2
+        x: 1036
+        y: 1036
+        width: 518
+        height: 518
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Lava_sprite_15
+      rect:
+        serializedVersion: 2
+        x: 1554
+        y: 1036
+        width: 518
+        height: 518
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Lava_sprite_16
+      rect:
+        serializedVersion: 2
+        x: 2072
+        y: 1036
+        width: 518
+        height: 518
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Lava_sprite_17
+      rect:
+        serializedVersion: 2
+        x: 2590
+        y: 1036
+        width: 518
+        height: 518
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Lava_sprite_18
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 518
+        width: 518
+        height: 518
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Lava_sprite_19
+      rect:
+        serializedVersion: 2
+        x: 518
+        y: 518
+        width: 518
+        height: 518
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Lava_sprite_20
+      rect:
+        serializedVersion: 2
+        x: 1036
+        y: 518
+        width: 518
+        height: 518
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Lava_sprite_21
+      rect:
+        serializedVersion: 2
+        x: 1554
+        y: 518
+        width: 518
+        height: 518
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Lava_sprite_22
+      rect:
+        serializedVersion: 2
+        x: 2072
+        y: 518
+        width: 518
+        height: 518
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Lava_sprite_23
+      rect:
+        serializedVersion: 2
+        x: 2590
+        y: 518
+        width: 518
+        height: 518
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Lava_sprite_24
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 518
+        height: 518
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Lava_sprite_25
+      rect:
+        serializedVersion: 2
+        x: 518
+        y: 0
+        width: 518
+        height: 518
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Lava_sprite_26
+      rect:
+        serializedVersion: 2
+        x: 1036
+        y: 0
+        width: 518
+        height: 518
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Lava_sprite_27
+      rect:
+        serializedVersion: 2
+        x: 1554
+        y: 0
+        width: 518
+        height: 518
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Lava_sprite_28
+      rect:
+        serializedVersion: 2
+        x: 2072
+        y: 0
+        width: 518
+        height: 518
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Lava_sprite_29
+      rect:
+        serializedVersion: 2
+        x: 2590
+        y: 0
+        width: 518
+        height: 518
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    outline: []
+    physicsShape: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
