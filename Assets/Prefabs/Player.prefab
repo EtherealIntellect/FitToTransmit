@@ -109,7 +109,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 10
+  m_LinearDrag: 12.5
   m_AngularDrag: 0.05
   m_GravityScale: 0
   m_Material: {fileID: 0}
@@ -306,7 +306,7 @@ MonoBehaviour:
   playerSkills: {fileID: 0}
   velocity: {x: 0, y: 0}
   range: 0.1
-  smoothValue: 30
+  smoothValue: 40
   solution: {fileID: 0}
   currentScore: 0
   ScoreText: {fileID: 0}
@@ -369,6 +369,6 @@ TargetJoint2D:
   m_Anchor: {x: 0, y: 0}
   m_Target: {x: -2.83, y: 5.23}
   m_AutoConfigureTarget: 0
-  m_MaxForce: 250
-  m_DampingRatio: 1
+  m_MaxForce: 300
+  m_DampingRatio: 0.1
   m_Frequency: 3.11
