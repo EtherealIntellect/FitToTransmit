@@ -316,22 +316,6 @@ Animation:
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
   m_CullingType: 0
---- !u!1 &361115347 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1932647341701832, guid: b4ee3381d93cc6c429445bb98b852543,
-    type: 2}
-  m_PrefabInternal: {fileID: 859258379}
---- !u!114 &361115348
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 361115347}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c4aaf193677bf544da31573c7cb3e1f4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &859258379
 Prefab:
   m_ObjectHideFlags: 0

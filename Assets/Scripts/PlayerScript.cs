@@ -21,10 +21,12 @@ public class PlayerScript : MonoBehaviour {
 	public float range = 0.5f;
 	public float smoothValue = 1;
 
-	public GameObject solution;
+	// the combination of elements players needs to obtain to pass level
+	GameObject solution;
 
 	public int currentScore = 0;
-	public Text ScoreText;
+	// where current number of moves is printed out
+	Text ScoreText;
 
 	// Use this for initialization
 	void Start () {
@@ -33,6 +35,7 @@ public class PlayerScript : MonoBehaviour {
 		rb2D = GetComponent<Rigidbody2D>();
 
 		solution = GameObject.Find("solution");
+		ScoreText = GameObject.Find("Score").GetComponent<Text>();
 
 	}
 
@@ -58,7 +61,7 @@ public class PlayerScript : MonoBehaviour {
 
 			if(!touchedCircle){
 				rb2D.AddForce(lastClickedPosition * smoothValue, ForceMode2D.Impulse);
-				Debug.Log(Vector3.Distance(transform.TransformPoint(lastClickedPosition), transform.position));	
+				// Debug.Log(Vector3.Distance(transform.TransformPoint(lastClickedPosition), transform.position));	
 			}
 			else{
 				break;
@@ -224,7 +227,7 @@ public class PlayerScript : MonoBehaviour {
         }
         if (solved==true)
         {
-            Debug.Log("Half solved");
+            // Debug.Log("Half solved");
             Debug.Log(finalplayer.Count + "," + solution.transform.childCount);
             if (finalplayer.Count == solution.transform.childCount)
             {

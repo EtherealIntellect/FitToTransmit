@@ -19,11 +19,12 @@ public class GameScript : MonoBehaviour {
 
 		// assign a delegate so we know when scene is changed
 		SceneManager.sceneLoaded += OnSceneLoaded;
+		Debug.Log("just how many time is this thing called anyway?");
 		
 	}
 
 	void OnDestroy(){
-		SceneManager.sceneLoaded -= OnSceneLoaded;
+		// SceneManager.sceneLoaded -= OnSceneLoaded;
 	}
 	
 	// Update is called once per frame
@@ -37,5 +38,6 @@ public class GameScript : MonoBehaviour {
         if(SceneManager.GetActiveScene().name == "Highscores"){
         	GameObject.Find("Highscore").GetComponent<Text>().text = GameObject.Find("Highscore").GetComponent<Text>().text + ": " + totalMoves;
         }
+        // SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 }
