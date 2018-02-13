@@ -8,6 +8,7 @@ public class GameScript : MonoBehaviour {
 
 	float totalMoves = 0;
 	public float TotalMoves{ get{ return totalMoves; } set{ totalMoves = value; } }
+	bool instantiated = false;
 
 	void Awake(){
 		DontDestroyOnLoad(transform.gameObject);
@@ -18,8 +19,11 @@ public class GameScript : MonoBehaviour {
 		// Restore data from local storage so user continues session
 
 		// assign a delegate so we know when scene is changed
-		SceneManager.sceneLoaded += OnSceneLoaded;
-		Debug.Log("just how many time is this thing called anyway?");
+		if (!instantiated){
+			SceneManager.sceneLoaded += OnSceneLoaded;
+			
+			instantiated = true;
+		}
 		
 	}
 
@@ -30,6 +34,11 @@ public class GameScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
+		// global shortcuts
+		if(Input.GetKeyDown("escape")){
+			SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+		}
+
 	}
 
 	// called second
@@ -37,6 +46,7 @@ public class GameScript : MonoBehaviour {
     {
         if(SceneManager.GetActiveScene().name == "Highscores"){
         	GameObject.Find("Highscore").GetComponent<Text>().text = GameObject.Find("Highscore").GetComponent<Text>().text + ": " + totalMoves;
+        	Debug.Log("just how many time is this thing called anyway?");
         }
         // SceneManager.sceneLoaded -= OnSceneLoaded;
     }

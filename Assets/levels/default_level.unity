@@ -2092,6 +2092,21 @@ Prefab:
       propertyPath: ScoreText
       value: 
       objectReference: {fileID: 1048534141}
+    - target: {fileID: 257621984508491872, guid: 47bac4f599c8a4e4e811da329afdeec9,
+        type: 2}
+      propertyPath: m_DampingRatio
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 257621984508491872, guid: 47bac4f599c8a4e4e811da329afdeec9,
+        type: 2}
+      propertyPath: m_Frequency
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 257621984508491872, guid: 47bac4f599c8a4e4e811da329afdeec9,
+        type: 2}
+      propertyPath: m_MaxForce
+      value: 450
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 47bac4f599c8a4e4e811da329afdeec9, type: 2}
   m_IsPrefabParent: 0

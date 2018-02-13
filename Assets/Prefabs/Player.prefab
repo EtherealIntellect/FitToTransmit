@@ -307,9 +307,7 @@ MonoBehaviour:
   velocity: {x: 0, y: 0}
   range: 0.1
   smoothValue: 40
-  solution: {fileID: 1613918269532456, guid: 7984c5d784ed2534cb155e48b33c5976, type: 2}
   currentScore: 0
-  ScoreText: {fileID: 0}
 --- !u!212 &212662641969473632
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -369,6 +367,6 @@ TargetJoint2D:
   m_Anchor: {x: 0, y: 0}
   m_Target: {x: -2.83, y: 5.23}
   m_AutoConfigureTarget: 0
-  m_MaxForce: 300
-  m_DampingRatio: 0.1
-  m_Frequency: 3.11
+  m_MaxForce: 450
+  m_DampingRatio: 0
+  m_Frequency: 7
