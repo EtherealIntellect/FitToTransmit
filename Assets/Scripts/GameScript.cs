@@ -11,8 +11,11 @@ public class GameScript : MonoBehaviour {
 	bool instantiated = false;
 
 	void Awake(){
+		
 		DontDestroyOnLoad(transform.gameObject);
+
 	}
+
 	// Use this for initialization
 	void Start () {
 
@@ -24,6 +27,21 @@ public class GameScript : MonoBehaviour {
 			
 			instantiated = true;
 		}
+
+		// if this is a normal level and not an intro or menu then initialize a few things
+		if (GameObject.Find("solution")){
+			GameObject movesCounter = GameObject.Find("Moves Counter");
+			movesCounter.GetComponent<Slider>().maxValue = int.Parse(GameObject.Find("solution").transform.Find("optimalScore").GetComponent<Text>().text);
+			Transform bgFill = movesCounter.transform.Find("Background");
+			Transform tmpMoveSlot;
+			for(int i = 0; i < movesCounter.GetComponent<Slider>().maxValue-1; i++)
+			{
+				tmpMoveSlot = Instantiate(bgFill.Find("MoveSlot"));
+				tmpMoveSlot.SetParent(bgFill);
+				tmpMoveSlot.localScale = Vector3.one;
+			}
+		}
+
 		
 	}
 
@@ -39,14 +57,29 @@ public class GameScript : MonoBehaviour {
 			SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
 		}
 
+		// manage score
+		
+
 	}
+
+	void HandleMoveScore(int currentMoveCount){
+		// player moved so adjust score appropriately
+		Debug.Log("current score: " + currentMoveCount);
+		GameObject movesCounter = GameObject.Find("Moves Counter");
+		if (movesCounter.GetComponent<Slider>().value >= movesCounter.GetComponent<Slider>().maxValue){
+			movesCounter.GetComponent<Slider>().maxValue++;
+		}
+		movesCounter.GetComponent<Slider>().value++;
+	}
+
+
 
 	// called second
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         if(SceneManager.GetActiveScene().name == "Highscores"){
         	GameObject.Find("Highscore").GetComponent<Text>().text = GameObject.Find("Highscore").GetComponent<Text>().text + ": " + totalMoves;
-        	Debug.Log("just how many time is this thing called anyway?");
+        	Debug.Log("just how many times is this thing called anyway?");
         }
         // SceneManager.sceneLoaded -= OnSceneLoaded;
     }

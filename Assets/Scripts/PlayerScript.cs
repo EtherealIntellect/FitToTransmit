@@ -7,11 +7,11 @@ using UnityEngine.UI;
 public class PlayerScript : MonoBehaviour {
 
 
-	public Vector3 offset;
-	public Transform playerSkills;
-	Transform circleSkills;
+	public Vector3 offset; // distance from center of player circle used for elements position inside it
+	public Transform playerSkills; // a child object of player containing all the elements
+	Transform circleSkills; // the elements inside the colliding circle
 	
-
+	// collision mechanic vars
 	public Vector2 velocity;
     Rigidbody2D rb2D;
     bool touchedCircle = false;
@@ -25,17 +25,21 @@ public class PlayerScript : MonoBehaviour {
 	GameObject solution;
 
 	public int currentScore = 0;
-	// where current number of moves is printed out
-	Text ScoreText;
+	Text ScoreText; // where current number of moves is printed out
+
+	// reference to the PersistentObject that manages game sttate
+	Transform persistentObject; 
+
 
 	// Use this for initialization
 	void Start () {
+
+		// initialization
 		offset = new Vector3(0,0,0);
 		playerSkills = transform.Find("playerSkills");
 		rb2D = GetComponent<Rigidbody2D>();
-
-		solution = GameObject.Find("solution");
-		ScoreText = GameObject.Find("Score").GetComponent<Text>();
+		persistentObject = GameObject.Find("PersistentObject").transform;
+		solution = GameObject.Find("solution").transform.Find("correct_combo").gameObject;
 
 	}
 
@@ -61,7 +65,6 @@ public class PlayerScript : MonoBehaviour {
 
 			if(!touchedCircle){
 				rb2D.AddForce(lastClickedPosition * smoothValue, ForceMode2D.Impulse);
-				// Debug.Log(Vector3.Distance(transform.TransformPoint(lastClickedPosition), transform.position));	
 			}
 			else{
 				break;
@@ -80,11 +83,8 @@ public class PlayerScript : MonoBehaviour {
 	    	Vector3 v3 = Input.mousePosition;
 	    	v3.z = 10.1f;
 	    	lastClickedPosition = Camera.main.ScreenToWorldPoint(v3);
-	    	// rb2D.MovePosition(Vector2.Lerp(rb2D.position, lastClickedPosition, Time.deltaTime*smoothValue));
-	    	// v3 = Camera.main.ScreenToWorldPoint(v3);
 	    	lastClickedPosition = transform.InverseTransformPoint(lastClickedPosition);
 	    	rb2D.AddForce(lastClickedPosition * smoothValue, ForceMode2D.Impulse);
-	    	// transform.Velocity = Vector3.Lerp(transform.position , Camera.main.ScreenToWorldPoint(v3), Time.deltaTime*smoothValue);
     	}
     	else{
     		GetComponent<TargetJoint2D>().enabled = true;
@@ -102,14 +102,8 @@ public class PlayerScript : MonoBehaviour {
 		//fixing the exiting circles, standard size of 0.85
 		for (int i = 0; i < transform.GetChild(0).childCount; i++)
 		{
-		    // float dist = Vector3.Distance(transform.GetChild(0).GetChild(i).transform.position, transform.position);
-		    // Vector3 direction = (transform.position - transform.GetChild(0).GetChild(i).transform.position);
-		    // direction = direction.normalized;
-		    //Debug.Log("the distance is ===== " + dist);
-		    // if (dist > 0.85f)
 		    {
 		        transform.GetChild(0).GetChild(i).transform.position = Vector3.Lerp(transform.position, transform.GetChild(0).GetChild(i).transform.position, Time.deltaTime);
-		        // transform.GetChild(0).GetChild(i).GetComponent<Rigidbody2D>().AddForce(direction * 2, ForceMode2D.Force);
 		    }
 		}
 
@@ -120,15 +114,17 @@ public class PlayerScript : MonoBehaviour {
 
 		// stop controlling the circle
 		touchedCircle = true;
-		// also stop all movement of ball so it doesnt bounce off to another ball uninentionally
+		// also stop all movement of ball so it doesnt bounce off to another ball unintentionally
 		GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
 
-		// add to the "score"
+		// add to the move count score
 		currentScore++;
-		ScoreText.text = currentScore.ToString();
+		persistentObject.gameObject.SendMessage("HandleMoveScore", currentScore);
 
 		// play swap music
 		Camera.main.GetComponents<AudioSource>()[0].Play();
+
+		// swap code:
 
 		circleSkills = collision.transform.Find("circleSkills");
 
@@ -136,7 +132,7 @@ public class PlayerScript : MonoBehaviour {
 		List<Transform> circleChildren = new List<Transform>();
 		List<Transform> toBeAppended = new List<Transform>();
 		List<Transform> toBeDestroyed = new List<Transform>();
-		List<Transform> finalplayer = new List<Transform>();
+		List<Transform> finalplayer = new List<Transform>(); // all these temporary lists seemed to be needed because of destroying and reparenting elements on the fly, before garbage collection can take place
 
 		// get player skills
 		for(int i = 0; i < playerSkills.childCount; i++)
@@ -190,7 +186,6 @@ public class PlayerScript : MonoBehaviour {
 			Transform deathEffect = child.GetChild(0);
 			deathEffect.parent = null;
 			deathEffect.localScale = new Vector3(1, 1, 1);
-			// child.position =  Vector3.MoveTowards(child.position, child.position + new Vector3(Random.Range(-10, 10), Random.Range(-10, 10), Random.Range(-10, 10)), 2000);
 			Destroy(child.gameObject);
 		}
 
@@ -213,17 +208,6 @@ public class PlayerScript : MonoBehaviour {
             solved = false;
             }
  
- 
-            //  float dist = Vector3.Distance(transform.GetChild(0).GetChild(i).transform.position, transform.position);
-            //  Debug.Log("the distance is ===== " + dist);
-            // if (dist > 0.85f)
-            // {
-            //    transform.GetChild(0).GetChild(i).transform.position = Vector3.MoveTowards(transform.position, transform.GetChild(0).GetChild(i).transform.position, 0.80f);
-            //}
-            // }
-            // child.GetComponent<SpriteRenderer>().color = circleSkills;
-            // child.position = circleSkills.position + (offset += new Vector3(Random.Range(-range, range), Random.Range(-range, range), Random.Range(-range, range)));
-            // offset = Vector3.zero;
         }
         if (solved==true)
         {
@@ -240,12 +224,28 @@ public class PlayerScript : MonoBehaviour {
 	public void LoadNextLevel(){
 
 		// before loading next stage add current moves score to global score
-		GameObject.Find("PersistentObject").GetComponent<GameScript>().TotalMoves += currentScore;
+		persistentObject.GetComponent<GameScript>().TotalMoves += currentScore;
 
 		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
 	}
 
 	public void RestartLevel(){
 		SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+	}
+
+	public void OnUpdateScoreBar(){
+		if(GameObject.Find("Moves Counter").GetComponent<Slider>().value != 1)
+		{
+			Transform scoreFill = GameObject.Find("Fill").transform;
+			Transform tmpSingleMove = Instantiate(scoreFill.Find("SingleMove"));
+			tmpSingleMove.SetParent(scoreFill);
+			tmpSingleMove.localScale = Vector3.one;
+			if(scoreFill.parent.parent.GetComponent<Slider>().maxValue > int.Parse(solution.transform.parent.Find("optimalScore").GetComponent<Text>().text)){
+				tmpSingleMove.GetComponent<Image>().color = Color.red;	// if player crossed the optimal moves hreshold start marking new moves with red			
+			}
+			Transform tmpMoveSlot = Instantiate(scoreFill.parent.parent.Find("Background").Find("MoveSlot"));
+			tmpMoveSlot.SetParent(scoreFill.parent.parent.Find("Background"));
+			tmpMoveSlot.localScale = Vector3.one;
+		}
 	}
 }
