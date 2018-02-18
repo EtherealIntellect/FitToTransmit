@@ -152,9 +152,10 @@ public class PlayerScript : MonoBehaviour {
 
 			foreach(Transform skillInCircle in circleChildren){
 
-				Color circleSkillColor = skillInCircle.GetComponent<SpriteRenderer>().color;
-				Color playerSkillColor = skillInPlayer.GetComponent<SpriteRenderer>().color;
-				if(circleSkillColor == playerSkillColor)
+				Sprite circleSkillSprite = skillInCircle.GetComponent<SpriteRenderer>().sprite;
+				Sprite playerSkillSprite = skillInPlayer.GetComponent<SpriteRenderer>().sprite;
+				
+				if(circleSkillSprite == playerSkillSprite)
 				{
 					// play destroy music
 					Camera.main.GetComponents<AudioSource>()[2].Play();
