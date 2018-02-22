@@ -27,19 +27,32 @@ public class PlayerScript : MonoBehaviour {
 	public int currentScore = 0;
 	Text ScoreText; // where current number of moves is printed out
 
-	// reference to the PersistentObject that manages game sttate
-	Transform persistentObject; 
+	// reference to the PersistentObject that manages game state
+	Transform persistentObject;
+	// just for editor debugging
+	[SerializeField]
+	Transform persistentObjectPrefab;
 
-
+	void Awake(){
+#if UNITY_EDITOR
+		// instantiate a PersistentObject in case we are not testing from intro
+		Debug.Log("Unity Editor");
+		Instantiate(persistentObjectPrefab.gameObject);
+#endif		
+	}
 	// Use this for initialization
 	void Start () {
+
+
 
 		// initialization
 		offset = new Vector3(0,0,0);
 		playerSkills = transform.Find("playerSkills");
 		rb2D = GetComponent<Rigidbody2D>();
-		persistentObject = GameObject.Find("PersistentObject").transform;
+		persistentObject = GameObject.FindWithTag("GameController").transform;
 		solution = GameObject.Find("solution").transform.Find("correct_combo").gameObject;
+
+
 
 	}
 
@@ -183,6 +196,7 @@ public class PlayerScript : MonoBehaviour {
 			offset = Vector3.zero;
 		}
 		foreach(Transform child in toBeDestroyed){
+			Debug.Log(child.name+" "+child.parent.name);
 			child.GetChild(0).GetComponent<ParticleSystem>().Play();
 			Transform deathEffect = child.GetChild(0);
 			deathEffect.parent = null;
@@ -226,8 +240,11 @@ public class PlayerScript : MonoBehaviour {
 
 		// before loading next stage add current moves score to global score
 		persistentObject.GetComponent<GameScript>().TotalMoves += currentScore;
+		persistentObject.GetComponent<GameScript>().SaveLevelScore(currentScore);
+		persistentObject.GetComponent<GameScript>().lastLevel = SceneManager.GetActiveScene().buildIndex;
 
-		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+		Resources.UnloadUnusedAssets();
+		SceneManager.LoadScene("Next Level");
 	}
 
 	public void RestartLevel(){

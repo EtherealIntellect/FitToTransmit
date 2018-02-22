@@ -7,6 +7,7 @@ public class CircleBehaviour : MonoBehaviour {
 	private Vector3 _startPosition;
 	float widthOfVibe = 3;
 	public float timeOffset;
+	public float vibeFrequency = 3f;
 
 	// Use this for initialization
 	void Start () {
@@ -17,7 +18,7 @@ public class CircleBehaviour : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		transform.position = _startPosition + new Vector3( 0f, Mathf.Sin(timeOffset + Time.time*6) / widthOfVibe, 0.0f);
+		transform.position = _startPosition + new Vector3( 0f, Mathf.Sin(timeOffset + Time.time*vibeFrequency) / widthOfVibe, 0.0f);
 
     }
 

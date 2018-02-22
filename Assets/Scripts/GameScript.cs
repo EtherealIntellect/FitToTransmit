@@ -6,9 +6,13 @@ using UnityEngine.UI;
 
 public class GameScript : MonoBehaviour {
 
+	// delete this object from all other levels except the very first one when building it
+
 	float totalMoves = 0;
 	public float TotalMoves{ get{ return totalMoves; } set{ totalMoves = value; } }
 	bool instantiated = false;
+	public string playerId = "unidentified_player";
+	public int lastLevel;
 
 	void Awake(){
 		
@@ -70,6 +74,11 @@ public class GameScript : MonoBehaviour {
 			movesCounter.GetComponent<Slider>().maxValue++;
 		}
 		movesCounter.GetComponent<Slider>().value++;
+	}
+
+	// save the score the player achieved for the passed level
+	public void SaveLevelScore(int score){
+		PlayerPrefs.SetInt(playerId+'_'+SceneManager.GetActiveScene().name, score);
 	}
 
 
