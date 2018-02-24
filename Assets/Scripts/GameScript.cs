@@ -18,13 +18,6 @@ public class GameScript : MonoBehaviour {
 		
 		DontDestroyOnLoad(transform.gameObject);
 
-	}
-
-	// Use this for initialization
-	void Start () {
-
-		// Restore data from local storage so user continues session
-
 		// assign a delegate so we know when scene is changed
 		if (!instantiated){
 			SceneManager.sceneLoaded += OnSceneLoaded;
@@ -32,19 +25,17 @@ public class GameScript : MonoBehaviour {
 			instantiated = true;
 		}
 
-		// if this is a normal level and not an intro or menu then initialize a few things
-		if (GameObject.Find("solution")){
-			GameObject movesCounter = GameObject.Find("Moves Counter");
-			movesCounter.GetComponent<Slider>().maxValue = int.Parse(GameObject.Find("solution").transform.Find("optimalScore").GetComponent<Text>().text);
-			Transform bgFill = movesCounter.transform.Find("Background");
-			Transform tmpMoveSlot;
-			for(int i = 0; i < movesCounter.GetComponent<Slider>().maxValue-1; i++)
-			{
-				tmpMoveSlot = Instantiate(bgFill.Find("MoveSlot"));
-				tmpMoveSlot.SetParent(bgFill);
-				tmpMoveSlot.localScale = Vector3.one;
-			}
-		}
+	}
+
+	// Use this for initialization
+	void Start () {
+
+		// Restore data from local storage so user continues session
+
+
+
+		// Debug.Log("Start of persistent object"); // this runs only once in the life of a persistent object regardless of how many levels it got through
+
 
 		
 	}
@@ -68,7 +59,6 @@ public class GameScript : MonoBehaviour {
 
 	void HandleMoveScore(int currentMoveCount){
 		// player moved so adjust score appropriately
-		Debug.Log("current score: " + currentMoveCount);
 		GameObject movesCounter = GameObject.Find("Moves Counter");
 		if (movesCounter.GetComponent<Slider>().value >= movesCounter.GetComponent<Slider>().maxValue){
 			movesCounter.GetComponent<Slider>().maxValue++;
@@ -86,10 +76,25 @@ public class GameScript : MonoBehaviour {
 	// called second
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+    	// if this is the highscores level, show high scores
         if(SceneManager.GetActiveScene().name == "Highscores"){
         	GameObject.Find("Highscore").GetComponent<Text>().text = GameObject.Find("Highscore").GetComponent<Text>().text + ": " + totalMoves;
-        	Debug.Log("just how many times is this thing called anyway?");
         }
         // SceneManager.sceneLoaded -= OnSceneLoaded;
+
+        // if this is a normal level and not an intro or menu then initialize a few things
+        if (GameObject.Find("solution")){
+        	GameObject movesCounter = GameObject.Find("Moves Counter");
+        	movesCounter.GetComponent<Slider>().maxValue = int.Parse(GameObject.Find("solution").transform.Find("optimalScore").GetComponent<Text>().text);
+        	Transform bgFill = movesCounter.transform.Find("Background");
+        	Transform tmpMoveSlot;
+        	for(int i = 0; i < movesCounter.GetComponent<Slider>().maxValue-1; i++)
+        	{
+        		tmpMoveSlot = Instantiate(bgFill.Find("MoveSlot"));
+        		tmpMoveSlot.SetParent(bgFill);
+        		tmpMoveSlot.localScale = Vector3.one;
+        	}
+        	// Debug.Log("Start of level"); // this does indeed run at tthe start of level even if it is first level
+        }
     }
 }

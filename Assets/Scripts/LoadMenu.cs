@@ -18,7 +18,7 @@ public class LoadMenu : MonoBehaviour {
 	}
 
 	void LoadNextLevel(){
-		Transform persistentObject = GameObject.Find("PersistentObject").transform;
+		Transform persistentObject = GameObject.FindWithTag("GameController").transform;
 		SceneManager.LoadScene(persistentObject.GetComponent<GameScript>().lastLevel + 1);
 	}
 }

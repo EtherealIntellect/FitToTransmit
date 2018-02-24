@@ -16,8 +16,8 @@ public class Shapeshifter : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		data = new List<Object>(Resources.LoadAll("Elements", typeof(Sprite)));
-		InvokeRepeating("ChangeElement", changeInterval, changeInterval);
-		InvokeRepeating("GlowEffect", changeInterval-0.75f, changeInterval);
+		InvokeRepeating("ChangeElement", 0.75f, changeInterval);
+		InvokeRepeating("GlowEffect", 0f, changeInterval);
 	}
 
 	void ChangeElement(){
@@ -32,7 +32,6 @@ public class Shapeshifter : MonoBehaviour {
 			for(int j = 0; j < validSprites.Count; j++){
 				if(cellMates[i].sprite == (validSprites[j] as Sprite)){
 					validSprites.RemoveAt(j);
-					Debug.Log("removed a color from valid colors");
 				}
 
 			}

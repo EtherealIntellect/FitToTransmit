@@ -36,8 +36,9 @@ public class PlayerScript : MonoBehaviour {
 	void Awake(){
 #if UNITY_EDITOR
 		// instantiate a PersistentObject in case we are not testing from intro
-		Debug.Log("Unity Editor");
-		Instantiate(persistentObjectPrefab.gameObject);
+		if(!GameObject.FindWithTag("GameController")){
+			Instantiate(persistentObjectPrefab.gameObject);
+		};
 #endif		
 	}
 	// Use this for initialization
@@ -196,7 +197,7 @@ public class PlayerScript : MonoBehaviour {
 			offset = Vector3.zero;
 		}
 		foreach(Transform child in toBeDestroyed){
-			Debug.Log(child.name+" "+child.parent.name);
+			// mind you, this code will create errors if there is more then one element of a kind in the circle or player
 			child.GetChild(0).GetComponent<ParticleSystem>().Play();
 			Transform deathEffect = child.GetChild(0);
 			deathEffect.parent = null;

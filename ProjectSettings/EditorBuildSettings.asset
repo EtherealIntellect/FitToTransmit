@@ -16,7 +16,7 @@ EditorBuildSettings:
     guid: 498a8cc4353b50a46908ecc70ff9f4c9
   - enabled: 1
     path: Assets/levels/Begginer levels/lvl_0.unity
-    guid: b6f6285d4e3d84145a60416b70c3c233
+    guid: 2e4cb29de95a9354fb8a84ecf9d705b5
   - enabled: 1
     path: Assets/levels/Begginer levels/lvl_1.unity
     guid: cd89c03a250f0e6469e803bf44b5ca32
