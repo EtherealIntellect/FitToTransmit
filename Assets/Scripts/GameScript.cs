@@ -67,8 +67,9 @@ public class GameScript : MonoBehaviour {
 	}
 
 	// save the score the player achieved for the passed level
-	public void SaveLevelScore(int score){
-		PlayerPrefs.SetInt(playerId+'_'+SceneManager.GetActiveScene().name, score);
+	public void SaveLevelScore(int score, int optimalScore){
+		PlayerPrefs.SetInt(playerId+'_'+SceneManager.GetActiveScene().name+"_playerScore", score);
+		PlayerPrefs.SetInt(playerId+'_'+SceneManager.GetActiveScene().name+"_optimalScore", optimalScore);
 	}
 
 

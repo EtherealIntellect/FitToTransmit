@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 222937244629877074}
   - component: {fileID: 114888549339590102}
   - component: {fileID: 114238440842240020}
+  - component: {fileID: 114093184902918386}
   m_Layer: 5
   m_Name: levelButton
   m_TagString: Untagged
@@ -46,6 +47,17 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &114093184902918386
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1598341890731688}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ef0ae8bb6811af4e93740a4f1775417, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114238440842240020
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -173,10 +185,10 @@ RectTransform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 160, y: 30}
+  m_SizeDelta: {x: 160, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224528988743675054
 RectTransform:

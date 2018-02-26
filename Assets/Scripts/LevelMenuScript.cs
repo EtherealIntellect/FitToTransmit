@@ -21,7 +21,8 @@ public class LevelMenuScript : MonoBehaviour {
 		
 		int allScenesCount = SceneManager.sceneCountInBuildSettings;		
 
-		Transform bt;
+		Transform btn;
+		Transform score;
 		for(int i = 0; i < allScenesCount; i++){
 			// we check if lvl name contains "lvl" in it because that is how we determine if its a playable level
 			if(SceneUtility.GetScenePathByBuildIndex(i).Contains("lvl")){
@@ -32,18 +33,50 @@ public class LevelMenuScript : MonoBehaviour {
 				string sceneName = SceneUtility.GetScenePathByBuildIndex(i).Substring(startOfName, endOfName-startOfName);
 
 				// create buttons for every playable level
-				bt = Instantiate(levelButton);
-				bt.SetParent(canvas.GetChild(0).Find("LevelButtons"));
-				bt.GetComponent<RectTransform>().anchoredPosition = Vector3.zero;
+				btn = Instantiate(levelButton);
+				btn.SetParent(canvas.GetChild(0).Find("LevelButtons"));
+				btn.GetComponent<RectTransform>().anchoredPosition = Vector3.zero;
 				// assign appropriate data to the created buttons
-				bt.GetComponentInChildren<Text>().text = sceneName;
+				btn.GetComponentInChildren<Text>().text = sceneName;
 
 				// create score ui for every playable level
-				bt = Instantiate(levelButton);
-				bt.SetParent(canvas.GetChild(0).Find("LevelScores"));
-				bt.GetComponent<RectTransform>().anchoredPosition = Vector3.zero;
+				score = Instantiate(levelScore);
+				score.SetParent(canvas.GetChild(0).Find("LevelScores"), false);
+				// GameObject movesCounter = GameObject.Find("Moves Counter");
+				score.GetComponent<Slider>().maxValue = PlayerPrefs.GetInt(playerId+'_'+sceneName+"_optimalScore");
+
+				Transform bgFill = score.transform.Find("Background");
+				Transform tmpMoveSlot;
+				for(int j = 0; j < score.GetComponent<Slider>().maxValue-1; j++)
+				{
+					tmpMoveSlot = Instantiate(bgFill.Find("MoveSlot"));
+					tmpMoveSlot.SetParent(bgFill);
+					tmpMoveSlot.localScale = Vector3.one;
+				}
+
+				Transform fgFill = score.transform.Find("Fill Area").Find("Fill");
+				Transform tmpSingleMove;
+				for(int j = 0; j < PlayerPrefs.GetInt(playerId+'_'+sceneName+"_playerScore"); j++)
+				{
+					if (score.GetComponent<Slider>().value >= score.GetComponent<Slider>().maxValue){
+						score.GetComponent<Slider>().maxValue++;
+					}
+					if(score.GetComponent<Slider>().value != 0){
+						tmpSingleMove = Instantiate(fgFill.Find("SingleMove"));
+						tmpSingleMove.SetParent(fgFill);
+						tmpSingleMove.localScale = Vector3.one;
+
+						if(score.GetComponent<Slider>().maxValue > PlayerPrefs.GetInt(playerId+'_'+sceneName+"_optimalScore")){
+							tmpSingleMove.GetComponent<Image>().color = Color.red;	// if player crossed the optimal moves threshold start marking new moves with red			
+						}
+					}
+			
+					score.GetComponent<Slider>().value++;
+
+				}
+				// btn.GetComponent<RectTransform>().anchoredPosition = Vector3.zero;
 				// assign appropriate data to the created buttons
-				bt.GetComponentInChildren<Text>().text = PlayerPrefs.GetInt(playerId+'_'+sceneName).ToString();
+				// btn.GetComponentInChildren<Text>().text = PlayerPrefs.GetInt(playerId+'_'+sceneName).ToString();
 			}
 		}
 	}

@@ -144,7 +144,7 @@ public class PlayerScript : MonoBehaviour {
 
 		List<Transform> playerChildren = new List<Transform>();
 		List<Transform> circleChildren = new List<Transform>();
-		List<Transform> toBeAppended = new List<Transform>();
+		// List<Transform> toBeAppended = new List<Transform>(); //never used
 		List<Transform> toBeDestroyed = new List<Transform>();
 		List<Transform> finalplayer = new List<Transform>(); // all these temporary lists seemed to be needed because of destroying and reparenting elements on the fly, before garbage collection can take place
 
@@ -241,7 +241,7 @@ public class PlayerScript : MonoBehaviour {
 
 		// before loading next stage add current moves score to global score
 		persistentObject.GetComponent<GameScript>().TotalMoves += currentScore;
-		persistentObject.GetComponent<GameScript>().SaveLevelScore(currentScore);
+		persistentObject.GetComponent<GameScript>().SaveLevelScore(currentScore, int.Parse(solution.transform.parent.Find("optimalScore").GetComponent<Text>().text));
 		persistentObject.GetComponent<GameScript>().lastLevel = SceneManager.GetActiveScene().buildIndex;
 
 		Resources.UnloadUnusedAssets();
@@ -260,7 +260,7 @@ public class PlayerScript : MonoBehaviour {
 			tmpSingleMove.SetParent(scoreFill);
 			tmpSingleMove.localScale = Vector3.one;
 			if(scoreFill.parent.parent.GetComponent<Slider>().maxValue > int.Parse(solution.transform.parent.Find("optimalScore").GetComponent<Text>().text)){
-				tmpSingleMove.GetComponent<Image>().color = Color.red;	// if player crossed the optimal moves hreshold start marking new moves with red			
+				tmpSingleMove.GetComponent<Image>().color = Color.red;	// if player crossed the optimal moves threshold start marking new moves with red			
 			}
 			Transform tmpMoveSlot = Instantiate(scoreFill.parent.parent.Find("Background").Find("MoveSlot"));
 			tmpMoveSlot.SetParent(scoreFill.parent.parent.Find("Background"));
