@@ -1,19 +1,72 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class CircleBehaviour : MonoBehaviour {
 
 	private Vector3 _startPosition;
-	float widthOfVibe = 3;
+	public float widthOfVibe = 2;
 	public float timeOffset;
 	public float vibeFrequency = 3f;
+	bool hasCharge = false;
+
+	public Transform[] primaryElements;
+	public Transform[] secondaryElements;
+	// Sprite[] primarySprites;
 
 	// Use this for initialization
 	void Start () {
 		_startPosition = transform.position;
-		timeOffset = Random.Range(0f, 2f);
+		timeOffset = UnityEngine.Random.Range(0f, 2f);
+
+		
 	}
+
+	void OnMouseUp(){
+		// code for combining elements
+		Transform elemnts = transform.Find("circleSkills");
+		Sprite[] primarySprites = {primaryElements[0].GetComponent<SpriteRenderer>().sprite, primaryElements[1].GetComponent<SpriteRenderer>().sprite, primaryElements[2].GetComponent<SpriteRenderer>().sprite};
+		if(hasCharge && elemnts.childCount == 2){
+			if(elemnts.GetChild(0).GetComponent<SpriteRenderer>().color.a != elemnts.GetChild(1).GetComponent<SpriteRenderer>().color.a){
+
+				int firstElementIndex = Array.IndexOf(primarySprites, elemnts.GetChild(0).GetComponent<SpriteRenderer>().sprite);
+				int secondElementIndex = Array.IndexOf(primarySprites, elemnts.GetChild(1).GetComponent<SpriteRenderer>().sprite);
+				if(firstElementIndex >= 0 && 
+					secondElementIndex >= 0){
+					Debug.Log("combined " + firstElementIndex + " and " + secondElementIndex);
+
+					Transform newElement;
+					if((firstElementIndex == 0 || secondElementIndex == 0) && (secondElementIndex == 1 || firstElementIndex == 1)){
+						// red and green make yellow
+						newElement = Instantiate(secondaryElements[0], transform.position, Quaternion.identity) as Transform;
+						newElement.SetParent(elemnts, true);
+					}
+					else if((firstElementIndex == 0 || secondElementIndex == 0) && (secondElementIndex == 2 || firstElementIndex == 2)){
+						// red and blue make purple
+						newElement = Instantiate(secondaryElements[1],  transform.position, Quaternion.identity) as Transform;
+						newElement.SetParent(elemnts, true);
+					}
+					else if((firstElementIndex == 1 || secondElementIndex == 1) && (secondElementIndex == 2 || firstElementIndex == 2)){
+						// green and blue make cyan
+						newElement = Instantiate(secondaryElements[2],  transform.position, Quaternion.identity) as Transform;
+						newElement.SetParent(elemnts, true);
+					}
+
+					// destroy the primary elements
+					Destroy(elemnts.GetChild(0).gameObject);
+					Destroy(elemnts.GetChild(1).gameObject);
+
+					hasCharge = false;
+					// visual discharge code
+				}
+			}
+		}
+		else{
+			// visual cue for failed transmutation
+		}
+	}
+
 	
 	// Update is called once per frame
 	void Update () {
@@ -47,5 +100,10 @@ public class CircleBehaviour : MonoBehaviour {
 		        // transform.GetChild(0).GetChild(i).GetComponent<Rigidbody2D>().AddForce(direction * 2, ForceMode2D.Force);
 		    }
 		}
+    }
+
+    void ChargeUp(){
+    	hasCharge = true;
+    	// do some animation or other visual effects to tell player this circle is charged up
     }
 }

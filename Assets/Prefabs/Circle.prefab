@@ -193,7 +193,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9635dccb89f3fef4bbf7e02f88500c0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  widthOfVibe: 8
   timeOffset: 0
+  vibeFrequency: 3
+  primaryElements:
+  - {fileID: 4946449514732668, guid: efa7288cc9a7eee4ca5871d67a6ca0fa, type: 2}
+  - {fileID: 4946449514732668, guid: ab02f8779bf47454cb99c97c68c0be80, type: 2}
+  - {fileID: 4946449514732668, guid: 849634af11c93fd4ea5a139af607b8f9, type: 2}
+  secondaryElements:
+  - {fileID: 4946449514732668, guid: 12310fe52b43d0f4cbb1eda1c99cd4e5, type: 2}
+  - {fileID: 4946449514732668, guid: 870609e5d4002fa4ca1c33ce4979c694, type: 2}
+  - {fileID: 4946449514732668, guid: b735342a5f50ca2488b07736387c0cd1, type: 2}
 --- !u!212 &212771844897463460
 SpriteRenderer:
   m_ObjectHideFlags: 1

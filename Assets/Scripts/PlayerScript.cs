@@ -20,6 +20,7 @@ public class PlayerScript : MonoBehaviour {
 
 	public float range = 0.5f;
 	public float smoothValue = 1;
+	public float nextLevelDelay = 2f;
 
 	// the combination of elements players needs to obtain to pass level
 	GameObject solution;
@@ -125,117 +126,128 @@ public class PlayerScript : MonoBehaviour {
 	}
 
 	void OnCollisionEnter2D(Collision2D collision){
+		if(!touchedCircle){
 
-		// stop controlling the circle
-		touchedCircle = true;
-		// also stop all movement of ball so it doesnt bounce off to another ball unintentionally
-		GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
 
-		// add to the move count score
-		currentScore++;
-		persistentObject.gameObject.SendMessage("HandleMoveScore", currentScore);
+			// stop controlling the circle
+			touchedCircle = true;
+			// also stop all movement of ball so it doesnt bounce off to another ball unintentionally
+			GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
 
-		// play swap music
-		Camera.main.GetComponents<AudioSource>()[0].Play();
+			// add to the move count score
+			currentScore++;
+			persistentObject.gameObject.SendMessage("HandleMoveScore", currentScore);
 
-		// swap code:
+			// play swap music
+			Camera.main.GetComponents<AudioSource>()[0].Play();
 
-		circleSkills = collision.transform.Find("circleSkills");
+			// swap code:
 
-		List<Transform> playerChildren = new List<Transform>();
-		List<Transform> circleChildren = new List<Transform>();
-		// List<Transform> toBeAppended = new List<Transform>(); //never used
-		List<Transform> toBeDestroyed = new List<Transform>();
-		List<Transform> finalplayer = new List<Transform>(); // all these temporary lists seemed to be needed because of destroying and reparenting elements on the fly, before garbage collection can take place
+			circleSkills = collision.transform.Find("circleSkills");
 
-		// get player skills
-		for(int i = 0; i < playerSkills.childCount; i++)
-		{
-			playerChildren.Add(playerSkills.GetChild(i));
-			finalplayer.Add(playerSkills.GetChild(i));
-		}
-		// get circle skills
-		for(int i = 0; i <  circleSkills.childCount; i++)
-		{
-			circleChildren.Add( circleSkills.GetChild(i));
-			finalplayer.Add(circleSkills.GetChild(i));
-		}
+			List<Transform> playerChildren = new List<Transform>();
+			List<Transform> circleChildren = new List<Transform>();
+			// List<Transform> toBeAppended = new List<Transform>(); //never used
+			List<Transform> toBeDestroyed = new List<Transform>();
+			List<Transform> finalplayer = new List<Transform>(); // all these temporary lists seemed to be needed because of destroying and reparenting elements on the fly, before garbage collection can take place
 
-		// delete same elements
-		foreach(Transform skillInPlayer in playerChildren){
-
-			foreach(Transform skillInCircle in circleChildren){
-
-				Sprite circleSkillSprite = skillInCircle.GetComponent<SpriteRenderer>().sprite;
-				Sprite playerSkillSprite = skillInPlayer.GetComponent<SpriteRenderer>().sprite;
-				
-				if(circleSkillSprite == playerSkillSprite)
-				{
-					// play destroy music
-					Camera.main.GetComponents<AudioSource>()[2].Play();
-					toBeDestroyed.Add(skillInPlayer);
-					toBeDestroyed.Add(skillInCircle);
-					skillInPlayer.parent = null;
-					skillInCircle.parent = null;
-					finalplayer.Remove(skillInPlayer);
-                    finalplayer.Remove(skillInCircle);
-				}
-
+			// get player skills
+			for(int i = 0; i < playerSkills.childCount; i++)
+			{
+				playerChildren.Add(playerSkills.GetChild(i));
+				finalplayer.Add(playerSkills.GetChild(i));
 			}
-		}
+			// get circle skills
+			for(int i = 0; i <  circleSkills.childCount; i++)
+			{
+				circleChildren.Add( circleSkills.GetChild(i));
+				finalplayer.Add(circleSkills.GetChild(i));
+			}
 
-		// swap remaining elements
-		foreach(Transform child in playerChildren){
-			child.parent = circleSkills;
-			child.position = circleSkills.position + (offset += new Vector3(Random.Range(-range, range), Random.Range(-range, range), Random.Range(-range, range)));
-			offset = Vector3.zero;
-			finalplayer.Remove(child);
-		}
-		foreach(Transform child in circleChildren){
-			child.parent = playerSkills;
-			child.position = playerSkills.position + (offset += new Vector3(Random.Range(-range, range), Random.Range(-range, range), Random.Range(-range, range)));
-			offset = Vector3.zero;
-		}
-		foreach(Transform child in toBeDestroyed){
-			// mind you, this code will create errors if there is more then one element of a kind in the circle or player
-			child.GetChild(0).GetComponent<ParticleSystem>().Play();
-			Transform deathEffect = child.GetChild(0);
-			deathEffect.parent = null;
-			deathEffect.localScale = new Vector3(1, 1, 1);
-			Destroy(child.gameObject);
-		}
+			// delete same elements
+			foreach(Transform skillInPlayer in playerChildren){
+
+				foreach(Transform skillInCircle in circleChildren){
+
+					Sprite circleSkillSprite = skillInCircle.GetComponent<SpriteRenderer>().sprite;
+					Sprite playerSkillSprite = skillInPlayer.GetComponent<SpriteRenderer>().sprite;
+					
+					if(circleSkillSprite == playerSkillSprite)
+					{
+						// this check makes sure we can have more then one element of the same color in a circle
+						if(!toBeDestroyed.Contains(skillInPlayer) && !toBeDestroyed.Contains(skillInCircle)){
+							// play destroy music
+							Camera.main.GetComponents<AudioSource>()[2].Play();
+							toBeDestroyed.Add(skillInPlayer);
+							toBeDestroyed.Add(skillInCircle);
+							skillInPlayer.parent = null;
+							skillInCircle.parent = null;
+							finalplayer.Remove(skillInPlayer);
+		                    finalplayer.Remove(skillInCircle);
+	                	}
+	                	else{
+							// Debug.Log("Has one extra element of the same color");
+	                	}
+					}
+
+				}
+			}
+
+			// swap remaining elements
+			foreach(Transform child in playerChildren){
+				child.parent = circleSkills;
+				child.position = circleSkills.position + (offset += new Vector3(Random.Range(-range, range), Random.Range(-range, range), Random.Range(-range, range)));
+				offset = Vector3.zero;
+				finalplayer.Remove(child);
+			}
+			foreach(Transform child in circleChildren){
+				child.parent = playerSkills;
+				child.position = playerSkills.position + (offset += new Vector3(Random.Range(-range, range), Random.Range(-range, range), Random.Range(-range, range)));
+				offset = Vector3.zero;
+			}
+			foreach(Transform child in toBeDestroyed){ 
+				child.GetChild(0).GetComponent<ParticleSystem>().Play();
+				Transform deathEffect = child.GetChild(0);
+				deathEffect.parent = null;
+				deathEffect.localScale = new Vector3(1, 1, 1);
+				Destroy(child.gameObject);
+				collision.gameObject.SendMessage("ChargeUp");
+			}
 
 
-		//testing for the win condition
-        bool solved = true;
- 
-        for (int i = 0; i < solution.transform.childCount; i++)
-        {
-            bool found = false;
-            foreach (Transform child in finalplayer)
-            {
-                if (solution.transform.GetChild(i).GetComponent<SpriteRenderer>().color == child.GetComponent<SpriteRenderer>().color)
-                {
-                    found = true;
-                }
-            }
-            if (found == false)
-            { 
-            solved = false;
-            }
- 
-        }
-        if (solved==true)
-        {
-            // Debug.Log("Half solved");
-            Debug.Log(finalplayer.Count + "," + solution.transform.childCount);
-            if (finalplayer.Count == solution.transform.childCount)
-            {
-                Debug.Log("Game over");
-                Invoke("LoadNextLevel", 2.5f);
-            }
-        }
-
+			//testing for the win condition
+	        bool solved = true;
+	 
+	        for (int i = 0; i < solution.transform.childCount; i++)
+	        {
+	            bool found = false;
+	            foreach (Transform child in finalplayer)
+	            {
+	                if (solution.transform.GetChild(i).GetComponent<SpriteRenderer>().color == child.GetComponent<SpriteRenderer>().color)
+	                {
+	                    found = true;
+	                }
+	            }
+	            if (found == false)
+	            { 
+	            solved = false;
+	            }
+	 
+	        }
+	        if (solved==true)
+	        {
+	            // Debug.Log("Half solved");
+	            Debug.Log(finalplayer.Count + "," + solution.transform.childCount);
+	            if (finalplayer.Count == solution.transform.childCount)
+	            {
+	                Debug.Log("Game over");
+	                // lock control over ball
+	                GetComponent<CircleCollider2D>().enabled = false;;
+	                // load next level afer a while
+	                Invoke("LoadNextLevel", nextLevelDelay);
+	            }
+	        }
+		}
 	}
 	public void LoadNextLevel(){
 
