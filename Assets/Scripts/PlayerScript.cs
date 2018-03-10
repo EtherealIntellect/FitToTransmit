@@ -35,12 +35,12 @@ public class PlayerScript : MonoBehaviour {
 	Transform persistentObjectPrefab;
 
 	void Awake(){
-#if UNITY_EDITOR
-		// instantiate a PersistentObject in case we are not testing from intro
+// #if UNITY_EDITOR || UNITY_STANDALONE
+		// instantiate a PersistentObject in case we are not starting from intro (where there already is a PersistentObject)
 		if(!GameObject.FindWithTag("GameController")){
 			Instantiate(persistentObjectPrefab.gameObject);
 		};
-#endif		
+// #endif		
 	}
 	// Use this for initialization
 	void Start () {
@@ -206,10 +206,6 @@ public class PlayerScript : MonoBehaviour {
 				offset = Vector3.zero;
 			}
 			foreach(Transform child in toBeDestroyed){ 
-				child.GetChild(0).GetComponent<ParticleSystem>().Play();
-				Transform deathEffect = child.GetChild(0);
-				deathEffect.parent = null;
-				deathEffect.localScale = new Vector3(1, 1, 1);
 				Destroy(child.gameObject);
 				collision.gameObject.SendMessage("ChargeUp");
 			}
@@ -237,7 +233,7 @@ public class PlayerScript : MonoBehaviour {
 	        if (solved==true)
 	        {
 	            // Debug.Log("Half solved");
-	            Debug.Log(finalplayer.Count + "," + solution.transform.childCount);
+	            // Debug.Log(finalplayer.Count + "," + solution.transform.childCount);
 	            if (finalplayer.Count == solution.transform.childCount)
 	            {
 	                Debug.Log("Game over");
@@ -249,6 +245,7 @@ public class PlayerScript : MonoBehaviour {
 	        }
 		}
 	}
+	
 	public void LoadNextLevel(){
 
 		// before loading next stage add current moves score to global score
@@ -271,12 +268,13 @@ public class PlayerScript : MonoBehaviour {
 			Transform tmpSingleMove = Instantiate(scoreFill.Find("SingleMove"));
 			tmpSingleMove.SetParent(scoreFill);
 			tmpSingleMove.localScale = Vector3.one;
-			if(scoreFill.parent.parent.GetComponent<Slider>().maxValue > int.Parse(solution.transform.parent.Find("optimalScore").GetComponent<Text>().text)){
-				tmpSingleMove.GetComponent<Image>().color = Color.red;	// if player crossed the optimal moves threshold start marking new moves with red			
+			if(scoreFill.parent.parent.GetComponent<Slider>().maxValue > int.Parse(GameObject.Find("solution").transform.Find("optimalScore").GetComponent<Text>().text)){
+				tmpSingleMove.GetComponent<Image>().color = Color.red;	// if player crossed the optimal moves threshold start marking new moves with red	
+				Transform tmpMoveSlot = Instantiate(scoreFill.parent.parent.Find("Background").Find("MoveSlot"));
+				tmpMoveSlot.SetParent(scoreFill.parent.parent.Find("Background"));
+				tmpMoveSlot.localScale = Vector3.one;		
 			}
-			Transform tmpMoveSlot = Instantiate(scoreFill.parent.parent.Find("Background").Find("MoveSlot"));
-			tmpMoveSlot.SetParent(scoreFill.parent.parent.Find("Background"));
-			tmpMoveSlot.localScale = Vector3.one;
+
 		}
 	}
 }

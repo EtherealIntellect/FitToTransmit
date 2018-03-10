@@ -43,6 +43,7 @@ GameObject:
   - component: {fileID: 114068284906166986}
   - component: {fileID: 111774147311893166}
   - component: {fileID: 114686748266608680}
+  - component: {fileID: 114100417832721464}
   m_Layer: 2
   m_Name: Shapeshifter
   m_TagString: Untagged
@@ -262,6 +263,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   justSpawned: 1
+--- !u!114 &114100417832721464
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1541680146167134}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49a75d1cfed619f4a9d8983742ee3cb7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114686748266608680
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3818,7 +3830,7 @@ SpriteRenderer:
   m_Size: {x: 0.19333333, y: 0.19333333}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
 --- !u!212 &212848441182065672
 SpriteRenderer:

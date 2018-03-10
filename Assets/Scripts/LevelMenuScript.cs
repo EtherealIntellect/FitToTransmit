@@ -29,7 +29,7 @@ public class LevelMenuScript : MonoBehaviour {
 
 				// some string manipulations to extract the name of the level
 				int endOfName = SceneUtility.GetScenePathByBuildIndex(i).LastIndexOf(".");
-				int startOfName = SceneUtility.GetScenePathByBuildIndex(i).IndexOf("lvl");
+				int startOfName = SceneUtility.GetScenePathByBuildIndex(i).LastIndexOf("/") + 1;
 				string sceneName = SceneUtility.GetScenePathByBuildIndex(i).Substring(startOfName, endOfName-startOfName);
 
 				// create buttons for every playable level

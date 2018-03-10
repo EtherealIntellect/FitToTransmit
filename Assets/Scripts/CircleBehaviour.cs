@@ -34,7 +34,6 @@ public class CircleBehaviour : MonoBehaviour {
 				int secondElementIndex = Array.IndexOf(primarySprites, elemnts.GetChild(1).GetComponent<SpriteRenderer>().sprite);
 				if(firstElementIndex >= 0 && 
 					secondElementIndex >= 0){
-					Debug.Log("combined " + firstElementIndex + " and " + secondElementIndex);
 
 					Transform newElement;
 					if((firstElementIndex == 0 || secondElementIndex == 0) && (secondElementIndex == 1 || firstElementIndex == 1)){
@@ -106,4 +105,5 @@ public class CircleBehaviour : MonoBehaviour {
     	hasCharge = true;
     	// do some animation or other visual effects to tell player this circle is charged up
     }
+
 }

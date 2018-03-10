@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 50621155471744136}
   - component: {fileID: 96344984457876328}
   - component: {fileID: 114127499820033578}
+  - component: {fileID: 114098526023506394}
   m_Layer: 2
   m_Name: Red
   m_TagString: Untagged
@@ -203,6 +204,17 @@ TrailRenderer:
     generateLightingData: 0
   m_MinVertexDistance: 0.03
   m_Autodestruct: 0
+--- !u!114 &114098526023506394
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1469526646757640}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49a75d1cfed619f4a9d8983742ee3cb7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114127499820033578
 MonoBehaviour:
   m_ObjectHideFlags: 1

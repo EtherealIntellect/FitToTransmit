@@ -48,7 +48,7 @@ public class GameScript : MonoBehaviour {
 	void Update () {
 
 		// global shortcuts
-		if(Input.GetKeyDown("escape")){
+		if(Input.GetKey("escape") && Input.GetKeyDown("q")){
 			SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
 		}
 

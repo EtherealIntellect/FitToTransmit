@@ -512,7 +512,7 @@ Prefab:
     - target: {fileID: 114265330673914456, guid: 7984c5d784ed2534cb155e48b33c5976,
         type: 2}
       propertyPath: m_Text
-      value: '1
+      value: '5
 
 '
       objectReference: {fileID: 0}

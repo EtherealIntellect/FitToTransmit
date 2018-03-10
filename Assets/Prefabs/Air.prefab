@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 50439707529398362}
   - component: {fileID: 96217272461271696}
   - component: {fileID: 114495877532670686}
+  - component: {fileID: 114840441391299634}
   m_Layer: 2
   m_Name: Air
   m_TagString: Untagged
@@ -215,6 +216,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   justSpawned: 1
+--- !u!114 &114840441391299634
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1469526646757640}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49a75d1cfed619f4a9d8983742ee3cb7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!198 &198575220689074440
 ParticleSystem:
   m_ObjectHideFlags: 1
