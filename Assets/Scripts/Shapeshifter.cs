@@ -7,6 +7,10 @@ public class Shapeshifter : MonoBehaviour {
 	[SerializeField]
 	float changeInterval = 4f;
 
+	// 0 == yellow, 1 == red, 2 == magenta, 3 == green, 4 == blue, 5 == cyan
+	[SerializeField]
+	Texture2D[] elementSprites;
+
 	List<Object> data; //holds all possible element sprites
 	int index = 0;
 
@@ -37,10 +41,29 @@ public class Shapeshifter : MonoBehaviour {
 			}
 			
 		}
-		// also remove current sprite becasue we dont want to repeat this same sprite
+		// also remove current sprite because we dont want to repeat this same sprite
 		validSprites.Remove(transform.GetComponent<SpriteRenderer>().sprite);
 		//Load Sprite From The Resources Folder and use
-		transform.GetComponent<SpriteRenderer>().sprite = validSprites[index%validSprites.Count] as Sprite;
+		transform.GetComponent<SpriteRenderer>().sprite = validSprites[ index % validSprites.Count ] as Sprite;
+		// and here we finaly assign the new element type according to the new texture. could have gone the opposite way and decide type first and assign texure after but oh well.
+		if(transform.GetComponent<SpriteRenderer>().sprite.texture == elementSprites[0]){
+			transform.GetComponent<ElementScript>().elementType = "yellow";
+		}
+		else if(transform.GetComponent<SpriteRenderer>().sprite.texture == elementSprites[1]){
+			transform.GetComponent<ElementScript>().elementType = "red";
+		}
+		else if(transform.GetComponent<SpriteRenderer>().sprite.texture == elementSprites[2]){
+			transform.GetComponent<ElementScript>().elementType = "magenta";
+		}
+		else if(transform.GetComponent<SpriteRenderer>().sprite.texture == elementSprites[3]){
+			transform.GetComponent<ElementScript>().elementType = "green";
+		}
+		else if(transform.GetComponent<SpriteRenderer>().sprite.texture == elementSprites[4]){
+			transform.GetComponent<ElementScript>().elementType = "blue";
+		}
+		else if(transform.GetComponent<SpriteRenderer>().sprite.texture == elementSprites[5]){
+			transform.GetComponent<ElementScript>().elementType = "cyan";
+		}
 		index++;
 		
 

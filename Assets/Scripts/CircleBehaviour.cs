@@ -15,6 +15,20 @@ public class CircleBehaviour : MonoBehaviour {
 	public Transform[] secondaryElements;
 	// Sprite[] primarySprites;
 
+	// element positions in circle depending on element count
+	[SerializeField]
+	Vector3[] oneElements;
+	[SerializeField]
+	Vector3[] twoElements;
+	[SerializeField]
+	Vector3[] threeElements;
+	[SerializeField]
+	Vector3[] fourElements;
+	[SerializeField]
+	Vector3[] fiveElements;
+	[SerializeField]
+	Vector3[] sixElements;
+
 	// Use this for initialization
 	void Start () {
 		_startPosition = transform.position;
@@ -25,8 +39,9 @@ public class CircleBehaviour : MonoBehaviour {
 
 	void OnMouseUp(){
 		// code for combining elements
-		Transform elemnts = transform.Find("circleSkills");
+		Transform elemnts = transform.Find("elements");
 		Sprite[] primarySprites = {primaryElements[0].GetComponent<SpriteRenderer>().sprite, primaryElements[1].GetComponent<SpriteRenderer>().sprite, primaryElements[2].GetComponent<SpriteRenderer>().sprite};
+		// if this circle is charged and has only two elements combine them into one
 		if(hasCharge && elemnts.childCount == 2){
 			if(elemnts.GetChild(0).GetComponent<SpriteRenderer>().color.a != elemnts.GetChild(1).GetComponent<SpriteRenderer>().color.a){
 
@@ -74,6 +89,9 @@ public class CircleBehaviour : MonoBehaviour {
 
     }
 
+
+    // private Vector3 velocity = Vector3.zero;
+    // public float smoothTime = 0.5F;
     void FixedUpdate(){
     	//fixing the exiting circles, standard size of 0.85
 /*    	for (int i = 0; i < transform.GetChild(0).childCount; i++)
@@ -87,7 +105,7 @@ public class CircleBehaviour : MonoBehaviour {
     	// widthOfVibe = Random.Range(1f, Mathf.Sin(Time.time)*2);
     	//restoring if any circle scapes boundary
     			//fixing the exiting circles, standard size of 0.85
-		for (int i = 0; i < transform.GetChild(0).childCount; i++)
+		for (int i = 0; i < transform.Find("elements").childCount; i++)
 		{
 		    // float dist = Vector3.Distance(transform.GetChild(0).GetChild(i).transform.position, transform.position);
 		    // Vector3 direction = (transform.position - transform.GetChild(0).GetChild(i).transform.position);
@@ -95,7 +113,9 @@ public class CircleBehaviour : MonoBehaviour {
 		    //Debug.Log("the distance is ===== " + dist);
 		    // if (dist > 0.85f)
 		    {
-		        transform.GetChild(0).GetChild(i).transform.position = Vector3.Lerp(transform.position, transform.GetChild(0).GetChild(i).transform.position, Time.deltaTime);
+		        // transform.GetChild(0).GetChild(i).transform.position = Vector3.Lerp(transform.GetChild(0).GetChild(i).transform.position, transform.position + (transform.GetChild(0).GetChild(i).transform.position - transform.position), Time.deltaTime*0.01f);
+		        // transform.GetChild(0).GetChild(i).transform.position = transform.position + (transform.GetChild(0).GetChild(i).transform.position - transform.position);
+		        // transform.GetChild(0).GetChild(i).transform.position = Vector3.SmoothDamp(transform.GetChild(0).GetChild(i).transform.position, transform.position + (transform.GetChild(0).GetChild(i).transform.position - transform.position), ref velocity, smoothTime);
 		        // transform.GetChild(0).GetChild(i).GetComponent<Rigidbody2D>().AddForce(direction * 2, ForceMode2D.Force);
 		    }
 		}
@@ -105,5 +125,6 @@ public class CircleBehaviour : MonoBehaviour {
     	hasCharge = true;
     	// do some animation or other visual effects to tell player this circle is charged up
     }
+
 
 }

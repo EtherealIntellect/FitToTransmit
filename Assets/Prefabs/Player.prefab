@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 68913877295918646}
   - component: {fileID: 114655019913159664}
   m_Layer: 9
-  m_Name: playerSkills
+  m_Name: elements
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -69,7 +69,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1498405368287152}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.99, y: 4.93, z: 0}
+  m_LocalPosition: {x: -2.52, y: 5.44, z: 0}
   m_LocalScale: {x: 11.86, y: 11.86, z: 1}
   m_Children:
   - {fileID: 4509543750603178}
@@ -83,13 +83,13 @@ Rigidbody2D:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1328459213712702}
-  m_BodyType: 1
-  m_Simulated: 1
+  m_BodyType: 0
+  m_Simulated: 0
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
+  m_Mass: 0.1
+  m_LinearDrag: 12.33
+  m_AngularDrag: 0
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
@@ -285,11 +285,40 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   offset: {x: 0, y: 0, z: 0}
-  playerSkills: {fileID: 0}
+  playerElements: {fileID: 0}
   velocity: {x: 0, y: 0}
   range: 0.1
   smoothValue: 40
   nextLevelDelay: 2
+  destructionEffect: {fileID: 4209100901620372, guid: 243c88bfd6eb4e740bae4b0719382939,
+    type: 2}
+  oneElements:
+  - {x: 0, y: 0, z: 0}
+  twoElements:
+  - {x: -0.035, y: 0, z: 0}
+  - {x: 0.035, y: 0, z: 0}
+  threeElements:
+  - {x: -0.035, y: -0.03, z: 0}
+  - {x: 0, y: 0.03, z: 0}
+  - {x: 0.035, y: -0.03, z: 0}
+  fourElements:
+  - {x: -0.035, y: 0.035, z: 0}
+  - {x: 0.035, y: 0.035, z: 0}
+  - {x: 0.035, y: -0.035, z: 0}
+  - {x: -0.035, y: -0.035, z: 0}
+  fiveElements:
+  - {x: -0.04949747, y: 0, z: 0}
+  - {x: 0, y: 0.04949747, z: 0}
+  - {x: 0.04949747, y: 0, z: 0}
+  - {x: 0, y: -0.04949747, z: 0}
+  - {x: 0, y: 0, z: 0}
+  sixElements:
+  - {x: 0.02474831, y: -0.04286633, z: 0}
+  - {x: 0.04949751, y: 0, z: 0}
+  - {x: 0.02474882, y: 0.04286601, z: 0}
+  - {x: -0.02474857, y: 0.04286617, z: 0}
+  - {x: -0.04949747, y: 0, z: 0}
+  - {x: -0.02474908, y: -0.04286585, z: 0}
   currentScore: 0
   persistentObjectPrefab: {fileID: 4267961027795770, guid: b4ee3381d93cc6c429445bb98b852543,
     type: 2}
@@ -350,7 +379,7 @@ TargetJoint2D:
   m_BreakForce: Infinity
   m_BreakTorque: Infinity
   m_Anchor: {x: 0, y: 0}
-  m_Target: {x: -2.83, y: 5.23}
+  m_Target: {x: -2.52, y: 5.44}
   m_AutoConfigureTarget: 0
   m_MaxForce: 450
   m_DampingRatio: 0.5

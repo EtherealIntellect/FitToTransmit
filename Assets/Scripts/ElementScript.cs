@@ -4,6 +4,41 @@ using UnityEngine;
 
 public class ElementScript : MonoBehaviour {
 
+	public string elementType = "yellow";
+
+	public void SwapAnimation(Transform destination, Vector3 offset, float approxAnimTime){
+		offset.x *= destination.localScale.x;
+		offset.y *= destination.localScale.y;
+		StartCoroutine(SwapCoroutine(destination, offset, approxAnimTime));
+	}
+
+	IEnumerator SwapCoroutine(Transform destination, Vector3 offset, float approxAnimTime){
+		while(Vector3.Distance(transform.position, destination.position + (offset)) > 0.05f){
+			transform.position = Vector3.Lerp(transform.position, destination.position + offset, Time.deltaTime / approxAnimTime);
+			yield return 0;
+		}
+		yield return 0;
+	}
+
+	public void DestroyAnimation(float approxAnimTime){
+		StartCoroutine(DestroyCoroutine(approxAnimTime));
+	}
+
+	// lower this element's alpha until it is completely invisible, then destroy it
+	IEnumerator DestroyCoroutine(float approxAnimTime){
+		float passedTime = 0f;
+		Color tmpColor;
+		while(passedTime < approxAnimTime){
+			tmpColor = transform.GetComponent<SpriteRenderer>().color;
+			tmpColor.a -= (Time.deltaTime / approxAnimTime);
+			transform.GetComponent<SpriteRenderer>().color = tmpColor; 
+			passedTime += Time.deltaTime;
+			yield return 0;
+		}
+		Destroy(transform.gameObject);
+		yield return 0;
+	}
+
 	// Use this for initialization
 	void Start () {
 		
@@ -15,7 +50,7 @@ public class ElementScript : MonoBehaviour {
 	}
 
 	void OnDestroy() {
-		// death animation code
+		// death animation code. to be uncommented when it will have particle coomponent
 /*		Transform deathEffect = transform.GetChild(0);
 		deathEffect.GetComponent<ParticleSystem>().Play();
 		deathEffect.parent = null;
