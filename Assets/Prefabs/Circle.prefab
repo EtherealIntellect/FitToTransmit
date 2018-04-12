@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 50313187888801622}
   - component: {fileID: 58545628909612502}
   - component: {fileID: 114259938589376358}
+  - component: {fileID: 95938755942973102}
   m_Layer: 8
   m_Name: Circle
   m_TagString: PassiveCore
@@ -55,7 +56,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1686198210124032}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3.3, y: 5.08, z: 0}
+  m_LocalPosition: {x: -8.305728, y: 4.880683, z: 0}
   m_LocalScale: {x: 11.86, y: 11.86, z: 1}
   m_Children:
   - {fileID: 4409356357053120}
@@ -168,6 +169,23 @@ EdgeCollider2D:
   - {x: -0.04595444, y: 0.07150657}
   - {x: -0.023947245, y: 0.08155691}
   - {x: 0.000000014861872, y: 0.085}
+--- !u!95 &95938755942973102
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1686198210124032}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: dc0a9cad3c285284c9f6c414581216ef, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &114016213201634842
 MonoBehaviour:
   m_ObjectHideFlags: 1

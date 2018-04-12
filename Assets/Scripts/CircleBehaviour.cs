@@ -57,7 +57,7 @@ public class CircleBehaviour : MonoBehaviour {
 						newElement.SetParent(elemnts, true);
 					}
 					else if((firstElementIndex == 0 || secondElementIndex == 0) && (secondElementIndex == 2 || firstElementIndex == 2)){
-						// red and blue make purple
+						// red and blue make magenta
 						newElement = Instantiate(secondaryElements[1],  transform.position, Quaternion.identity) as Transform;
 						newElement.SetParent(elemnts, true);
 					}
@@ -73,6 +73,7 @@ public class CircleBehaviour : MonoBehaviour {
 
 					hasCharge = false;
 					// visual discharge code
+			    	transform.GetComponent<Animator>().SetBool("isCharged", false);
 				}
 			}
 		}
@@ -124,6 +125,8 @@ public class CircleBehaviour : MonoBehaviour {
     void ChargeUp(){
     	hasCharge = true;
     	// do some animation or other visual effects to tell player this circle is charged up
+    	transform.GetComponent<Animator>().SetBool("isCharged", true);
+
     }
 
 

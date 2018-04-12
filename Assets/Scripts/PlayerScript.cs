@@ -45,7 +45,10 @@ public class PlayerScript : MonoBehaviour {
 	// destruction animation prefab
 	[SerializeField]
 	Transform destructionEffect;
-	Transform graveyard;
+	Transform graveyard; // destroyed elements are sent here before actual destruction. I was haing problems with popping elements, I think it was something to do with rigidbodys
+	// duration of destruction effect
+	[SerializeField]
+	float destructionEffect_duration = 0.6f;
 
 	// the combination of elements players needs to obtain to pass level
 	GameObject solution;
@@ -250,11 +253,9 @@ public class PlayerScript : MonoBehaviour {
 				circleChildren.Remove(child); // I don't know how it finds the transform objects in a list of transforms, but it works for now.
 				playerChildren.Remove(child); // maybe I should look into it
 				// remove element from core but don't destroy it yet so it can be used for destruction animation
-				Debug.Log(child.position.x);
 				Vector3 prevPos = child.position;
 				// child.SetParent(null, true);
 				child.parent = graveyard;
-				Debug.Log(child.position.x);
 				// child.position = prevPos;
 				// Debug.Log(child.position.x);
 				// passive core gains a charge now
@@ -355,8 +356,24 @@ public class PlayerScript : MonoBehaviour {
 	}
 
 	IEnumerator KillDestructionEffect(Transform effect, float effectDuration){
-		yield return new WaitForSeconds(effectDuration);
+		float passedTime = 0;
+		float alpha = 1.0f;
+		Color tmpColor = effect.GetComponentInChildren<LineRenderer>().colorGradient.colorKeys[0].color;
+		while(passedTime < effectDuration){
+			alpha -= (Time.deltaTime / effectDuration);
+			foreach(LineRenderer line in effect.GetComponentsInChildren<LineRenderer>()){
+		        Gradient gradient = new Gradient();
+		        gradient.SetKeys(
+		            new GradientColorKey[] { new GradientColorKey(tmpColor, 0.0f), new GradientColorKey(tmpColor, 1.0f) },
+		            new GradientAlphaKey[] { new GradientAlphaKey(alpha, 0.0f), new GradientAlphaKey(alpha, 1.0f) }
+		            );
+		        line.colorGradient = gradient;		
+			}
+			yield return 0;
+		}
+		// yield return new WaitForSeconds(effectDuration);
 		Destroy(effect.gameObject);
+		yield return 0;
 	}
 
 
@@ -367,10 +384,9 @@ public class PlayerScript : MonoBehaviour {
 			tmpEffect = Instantiate(destructionEffect, Vector3.zero, Quaternion.identity);
 			tmpEffect.Find("LightningStart").position = destroyedElements[i*2].position;
 			tmpEffect.Find("LightningEnd").position = destroyedElements[i*2 + 1].position;
-			// kill lightning after some time
-			StartCoroutine(KillDestructionEffect(tmpEffect, 0.8f));
-			destroyedElements[i*2].GetComponent<ElementScript>().DestroyAnimation(1f);
-			destroyedElements[i*2 + 1].GetComponent<ElementScript>().DestroyAnimation(1f);
+			// start destroy animation of elements as well
+			destroyedElements[i*2].GetComponent<ElementScript>().DestroyAnimation(destructionEffect_duration);
+			destroyedElements[i*2 + 1].GetComponent<ElementScript>().DestroyAnimation(destructionEffect_duration);
 			// StartCoroutine("DestructionEffect_FadeOut", 0.8);
 			// adjust the destruction effect color according to destroyed element type
 			switch(destroyedElements[i*2].GetComponent<ElementScript>().elementType){
@@ -462,6 +478,8 @@ public class PlayerScript : MonoBehaviour {
 					break;
 
 			}
+			// kill lightning after some time
+			StartCoroutine(KillDestructionEffect(tmpEffect, destructionEffect_duration));
 		}
 	}
 
