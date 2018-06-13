@@ -26,11 +26,15 @@ public class Shapeshifter : MonoBehaviour {
 
 	void ChangeElement(){
 
-		// check which elements are in current circle
+		// get the elements that are in current circle
 		cellMates = new List<SpriteRenderer>(transform.parent.GetComponentsInChildren<SpriteRenderer>());
-		cellMates.RemoveAt(transform.GetSiblingIndex());
-		// make a new array made out of valid elements for use
+		if(cellMates.Count > 1){
+			// if it is not alon in the cire remove it from the list of elements not suitable for shapeshifting to (duplicates)
+			cellMates.RemoveAt(transform.GetSiblingIndex());
+		}
+		// make a new array made out of all  elements for use
 		List<Object> validSprites = new List<Object>(data);
+		// make a list of valid elements for use
 		for(int i = 0; i < cellMates.Count; i++){
 			
 			for(int j = 0; j < validSprites.Count; j++){
@@ -41,8 +45,6 @@ public class Shapeshifter : MonoBehaviour {
 			}
 			
 		}
-		// also remove current sprite because we dont want to repeat this same sprite
-		validSprites.Remove(transform.GetComponent<SpriteRenderer>().sprite);
 		//Load Sprite From The Resources Folder and use
 		transform.GetComponent<SpriteRenderer>().sprite = validSprites[ index % validSprites.Count ] as Sprite;
 		// and here we finaly assign the new element type according to the new texture. could have gone the opposite way and decide type first and assign texure after but oh well.

@@ -43,6 +43,12 @@ public class StartOptions : MonoBehaviour {
         }
 	}
 
+	public void LevelsMenu(){
+		//Use invoke to delay calling of LoadDelayed by half the length of fadeColorAnimationClip
+		StartCoroutine(LoadDelayed(menuSettingsData.menuFadeTime, "LevelsMenu"));
+		StartCoroutine(FadeCanvasGroupAlpha(0f, 1f, fadeOutImageCanvasGroup));
+	}
+
 
 	public void StartButtonClicked()
 	{
@@ -62,7 +68,8 @@ public class StartOptions : MonoBehaviour {
 		if (menuSettingsData.nextSceneIndex != 0) 
 		{
 			//Use invoke to delay calling of LoadDelayed by half the length of fadeColorAnimationClip
-			Invoke ("LoadDelayed", menuSettingsData.menuFadeTime);
+			StartCoroutine(LoadDelayed(menuSettingsData.menuFadeTime, sceneToStart));
+			// Invoke ("LoadDelayed", menuSettingsData.menuFadeTime);
 
             StartCoroutine(FadeCanvasGroupAlpha(0f, 1f, fadeOutImageCanvasGroup));
 
@@ -98,8 +105,9 @@ public class StartOptions : MonoBehaviour {
 	}
 
 
-	public void LoadDelayed()
+	IEnumerator LoadDelayed(float waitTime, int l_sceneToStart)
 	{
+		yield return new WaitForSeconds(waitTime);
 		//Pause button now works if escape is pressed since we are no longer in Main menu.
 		inMainMenu = false;
 
@@ -107,7 +115,20 @@ public class StartOptions : MonoBehaviour {
 		showPanels.HideMenu ();
 
 		//Load the selected scene, by scene index number in build settings
-		SceneManager.LoadScene (sceneToStart);
+		SceneManager.LoadScene (l_sceneToStart);
+	}
+
+	IEnumerator LoadDelayed(float waitTime, string l_sceneToStart)
+	{
+		yield return new WaitForSeconds(waitTime);
+		//Pause button now works if escape is pressed since we are no longer in Main menu.
+		inMainMenu = false;
+
+		//Hide the main menu UI element
+		showPanels.HideMenu ();
+
+		//Load the selected scene, by scene index number in build settings
+		SceneManager.LoadScene (l_sceneToStart);
 	}
 
 	public void HideDelayed()

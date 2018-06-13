@@ -74,6 +74,7 @@ public class CircleBehaviour : MonoBehaviour {
 					hasCharge = false;
 					// visual discharge code
 			    	transform.GetComponent<Animator>().SetBool("isCharged", false);
+			    	GetComponent<SpriteRenderer>().color = new Color32( 43, 43, 43, 255);
 				}
 			}
 		}
@@ -86,7 +87,7 @@ public class CircleBehaviour : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		transform.position = _startPosition + new Vector3( 0f, Mathf.Sin(timeOffset + Time.time*vibeFrequency) / widthOfVibe, 0.0f);
+		transform.position = _startPosition + new Vector3( 0f, Mathf.Sin(timeOffset + Time.time*vibeFrequency) * widthOfVibe, 0.0f);
 
     }
 
@@ -106,7 +107,7 @@ public class CircleBehaviour : MonoBehaviour {
     	// widthOfVibe = Random.Range(1f, Mathf.Sin(Time.time)*2);
     	//restoring if any circle scapes boundary
     			//fixing the exiting circles, standard size of 0.85
-		for (int i = 0; i < transform.Find("elements").childCount; i++)
+		// for (int i = 0; i < transform.Find("elements").childCount; i++)
 		{
 		    // float dist = Vector3.Distance(transform.GetChild(0).GetChild(i).transform.position, transform.position);
 		    // Vector3 direction = (transform.position - transform.GetChild(0).GetChild(i).transform.position);
@@ -126,8 +127,35 @@ public class CircleBehaviour : MonoBehaviour {
     	hasCharge = true;
     	// do some animation or other visual effects to tell player this circle is charged up
     	transform.GetComponent<Animator>().SetBool("isCharged", true);
-
     }
 
+    void SwapEvent(){
+    	// change the color of this core to be the mix of its elements (replace channel color values of core with sum of each channel values of elements)
+    	Transform elemnts = transform.Find("elements");
+    	if(hasCharge){
 
+	    	if(elemnts.childCount == 2){
+	    		String firstElement = elemnts.GetChild(0).GetComponent<ElementScript>().elementType;
+	    		String secondElement = elemnts.GetChild(1).GetComponent<ElementScript>().elementType;
+	    		if((firstElement == "red" || secondElement == "red" ) && (firstElement == "green" || secondElement == "green" )){
+	    			transform.GetComponent<Animator>().enabled = false;
+	    			GetComponent<SpriteRenderer>().color = new Color32( 255, 255, 26, 255);
+	    			Debug.Log(GetComponent<SpriteRenderer>().color);
+	    		}
+	    		else if((firstElement == "red" || secondElement == "red" ) && (firstElement == "blue" || secondElement == "blue" )){
+	    			transform.GetComponent<Animator>().enabled = false;
+	    			GetComponent<SpriteRenderer>().color = new Color32( 255, 26, 255, 255);
+	    			Debug.Log(GetComponent<SpriteRenderer>().color);
+	    		}
+	    		else if((firstElement == "green" || secondElement == "green" ) && (firstElement == "blue" || secondElement == "blue" )){
+	    			transform.GetComponent<Animator>().enabled = false;
+	    			GetComponent<SpriteRenderer>().color = new Color32( 26, 255, 255, 255);
+	    			Debug.Log(GetComponent<SpriteRenderer>().color);
+	    		}
+	    	}
+	    	else {
+	    		transform.GetComponent<Animator>().enabled = true;
+	    	}
+    	}
+    }
 }

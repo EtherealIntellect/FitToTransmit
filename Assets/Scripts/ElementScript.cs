@@ -5,18 +5,27 @@ using UnityEngine;
 public class ElementScript : MonoBehaviour {
 
 	public string elementType = "yellow";
+	// keep a copy of the executing script
+    private Coroutine coroutine;
+    bool animationRunning = false;
 
 	public void SwapAnimation(Transform destination, Vector3 offset, float approxAnimTime){
 		offset.x *= destination.localScale.x;
 		offset.y *= destination.localScale.y;
-		StartCoroutine(SwapCoroutine(destination, offset, approxAnimTime));
+		if(animationRunning)
+		{
+			StopCoroutine(coroutine);
+		}
+		coroutine = StartCoroutine(SwapCoroutine(destination, offset, approxAnimTime));
+		animationRunning = true;
 	}
 
 	IEnumerator SwapCoroutine(Transform destination, Vector3 offset, float approxAnimTime){
-		while(Vector3.Distance(transform.position, destination.position + (offset)) > 0.05f){
+		while(Vector3.Distance(transform.position, destination.position + (offset)) > 0.01f){
 			transform.position = Vector3.Lerp(transform.position, destination.position + offset, Time.deltaTime / approxAnimTime);
 			yield return 0;
 		}
+		animationRunning = false;
 		yield return 0;
 	}
 

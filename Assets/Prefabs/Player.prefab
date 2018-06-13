@@ -290,8 +290,6 @@ MonoBehaviour:
   range: 0.1
   smoothValue: 40
   nextLevelDelay: 2
-  destructionEffect: {fileID: 4209100901620372, guid: 243c88bfd6eb4e740bae4b0719382939,
-    type: 2}
   oneElements:
   - {x: 0, y: 0, z: 0}
   twoElements:
@@ -319,6 +317,9 @@ MonoBehaviour:
   - {x: -0.02474857, y: 0.04286617, z: 0}
   - {x: -0.04949747, y: 0, z: 0}
   - {x: -0.02474908, y: -0.04286585, z: 0}
+  destructionEffect: {fileID: 4209100901620372, guid: 243c88bfd6eb4e740bae4b0719382939,
+    type: 2}
+  destructionEffect_duration: 0.9
   currentScore: 0
   persistentObjectPrefab: {fileID: 4267961027795770, guid: b4ee3381d93cc6c429445bb98b852543,
     type: 2}

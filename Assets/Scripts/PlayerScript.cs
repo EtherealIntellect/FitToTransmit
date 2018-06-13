@@ -24,9 +24,6 @@ public class PlayerScript : MonoBehaviour {
 
 	// elements swap animation time
 	float approxAnimTime = 0.1f;
-	float timePassed = 0f;
-	float animationTime = 0.3f;
-	bool stillSwapping = false;
 
 	// element positions in circle depending on element count
 	[SerializeField]
@@ -69,6 +66,9 @@ public class PlayerScript : MonoBehaviour {
 			Instantiate(persistentObjectPrefab.gameObject);
 		};
 // #endif		
+		// make sure player core returns to the position in which it was placed initially
+		gameObject.GetComponent<TargetJoint2D>().enabled = true;
+		gameObject.GetComponent<TargetJoint2D>().autoConfigureTarget = true;
 	}
 	// Use this for initialization
 	void Start () {
@@ -96,6 +96,10 @@ public class PlayerScript : MonoBehaviour {
 			_childElements.Add(element);
 		}
 		SwapAnimation(_childElements, transform);
+
+		// make sure player core returns to the position in which it was placed initially
+		gameObject.GetComponent<TargetJoint2D>().autoConfigureTarget = false;
+		gameObject.GetComponent<TargetJoint2D>().enabled = false;
 	}
 
 	IEnumerator OnMouseUp(){
@@ -109,27 +113,6 @@ public class PlayerScript : MonoBehaviour {
 		yield return 0 ;
 	}
 
-	//  moves the player circle to the last position of mouse after release of mouse button (deprecated at the moment)
-/*	IEnumerator MoveTowardsPoint(){
-		Vector3 v3 = Input.mousePosition;
-		v3.z = 10.1f;
-		Vector3 wrldPoint = Camera.main.ScreenToWorldPoint(v3);
-		lastClickedPosition = transform.InverseTransformPoint(wrldPoint);
-		while(Vector3.Distance(wrldPoint, transform.position) > 1f){
-
-			if(!touchedCircle){
-				rb2D.AddForce(lastClickedPosition * smoothValue, ForceMode2D.Impulse);
-			}
-			else{
-				break;
-			}
-			
-		    yield return 0;
-		}
-
-		yield return 0;
-	}*/
-
 	void OnMouseDown(){
 
 
@@ -139,7 +122,7 @@ public class PlayerScript : MonoBehaviour {
 	// move player circle towards mouse cursor
 	void OnMouseDrag()
     {	
-    	if(!touchedCircle && !stillSwapping){
+    	if(!touchedCircle/* && !stillSwapping*/){
 	    	Vector3 v3 = Input.mousePosition;
 	    	v3.z = 10.1f;
 	    	lastClickedPosition = Camera.main.ScreenToWorldPoint(v3);
@@ -153,15 +136,6 @@ public class PlayerScript : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		if(stillSwapping){
-			if(timePassed < animationTime){
-				timePassed += Time.deltaTime;
-			}
-			else{
-				stillSwapping = false;
-				timePassed = 0f;
-			}
-		}
 
 	}
 
@@ -187,7 +161,6 @@ public class PlayerScript : MonoBehaviour {
 			touchedCircle = true;
 			// also stop all movement of ball so it doesnt bounce off to another ball unintentionally
 			GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
-			stillSwapping = true;
 			// circle goes back to origin
 			GetComponent<TargetJoint2D>().enabled = true;
 
@@ -266,7 +239,7 @@ public class PlayerScript : MonoBehaviour {
 			// swap remaining elements
 			foreach(Transform child in playerChildren){
 				finalplayer.Remove(child);
-				child.parent = circleSkills;
+				// child.parent = circleSkills;
 				// child.position = circleSkills.position + (offset + new Vector3(Random.Range(-range, range), Random.Range(-range, range), Random.Range(-range, range)));
 				offset = Vector3.zero;
 			}
@@ -282,6 +255,7 @@ public class PlayerScript : MonoBehaviour {
 				offset = Vector3.zero;
 			}
 			SwapAnimation(circleChildren, playerElements.parent);
+			circleSkills.parent.SendMessage("SwapEvent");
 
 
 
@@ -382,8 +356,8 @@ public class PlayerScript : MonoBehaviour {
 		for(int i = 0; i < destroyedElements.Count/2; i++){
 			// create destruction effect between both destroyed elements
 			tmpEffect = Instantiate(destructionEffect, Vector3.zero, Quaternion.identity);
-			tmpEffect.Find("LightningStart").position = destroyedElements[i*2].position;
-			tmpEffect.Find("LightningEnd").position = destroyedElements[i*2 + 1].position;
+			tmpEffect.Find("LightningStart").position = destroyedElements[ i*2 ].position;
+			tmpEffect.Find("LightningEnd").position = destroyedElements[ i*2 + 1 ].position;
 			// start destroy animation of elements as well
 			destroyedElements[i*2].GetComponent<ElementScript>().DestroyAnimation(destructionEffect_duration);
 			destroyedElements[i*2 + 1].GetComponent<ElementScript>().DestroyAnimation(destructionEffect_duration);
@@ -484,25 +458,25 @@ public class PlayerScript : MonoBehaviour {
 	}
 
 
-    void SwapAnimation(List<Transform> circleChildren, Transform destination){
+    void SwapAnimation(List<Transform> coreChildren, Transform destination){
     	
-    	// int elementsCount = destroyedCount == 0? circleChildren.Count : circleChildren.Count - destroyedCount / 2;
-    	switch(circleChildren.Count){
+    	// int elementsCount = destroyedCount == 0? coreChildren.Count : coreChildren.Count - destroyedCount / 2;
+    	switch(coreChildren.Count){
     		case 1:
     			{
-    			int i = 0;
-				// Vector3 offset = new Vector3(UnityEngine.Random.Range(-0.5f, 0.5f), UnityEngine.Random.Range(-0.5f, 0.5f), 0f);
-				Vector3 offset = oneElements[i];
-				circleChildren[0].parent = destination.Find("elements");
-				circleChildren[0].GetComponent<ElementScript>().SwapAnimation(destination, offset, approxAnimTime);
-				// child.SendMessage("SwapAnimation", destination.position + offset);
+		    			int i = 0;
+						// Vector3 offset = new Vector3(UnityEngine.Random.Range(-0.5f, 0.5f), UnityEngine.Random.Range(-0.5f, 0.5f), 0f);
+						Vector3 offset = oneElements[i];
+						coreChildren[0].parent = destination.Find("elements");
+						coreChildren[0].GetComponent<ElementScript>().SwapAnimation(destination, offset, approxAnimTime);
+						// child.SendMessage("SwapAnimation", destination.position + offset);
     			}
 				
     			break;
     		case 2:
     			{
     				int i = 0;
-					foreach(Transform child in circleChildren){
+					foreach(Transform child in coreChildren){
 						// Vector3 offset = new Vector3(UnityEngine.Random.Range(-0.5f, 0.5f), UnityEngine.Random.Range(-0.5f, 0.5f), 0f);
 						Vector3 offset = twoElements[i];
 						child.parent = destination.Find("elements");
@@ -514,7 +488,7 @@ public class PlayerScript : MonoBehaviour {
 			case 3:
 				{
     				int i = 0;
-					foreach(Transform child in circleChildren){
+					foreach(Transform child in coreChildren){
 						// Vector3 offset = new Vector3(UnityEngine.Random.Range(-0.5f, 0.5f), UnityEngine.Random.Range(-0.5f, 0.5f), 0f);
 						Vector3 offset = threeElements[i];
 						child.parent = destination.Find("elements");
@@ -526,7 +500,7 @@ public class PlayerScript : MonoBehaviour {
     		case 4:
 				{
     				int i = 0;
-					foreach(Transform child in circleChildren){
+					foreach(Transform child in coreChildren){
 						// Vector3 offset = new Vector3(UnityEngine.Random.Range(-0.5f, 0.5f), UnityEngine.Random.Range(-0.5f, 0.5f), 0f);
 						Vector3 offset = fourElements[i];
 						child.parent = destination.Find("elements");
@@ -538,7 +512,7 @@ public class PlayerScript : MonoBehaviour {
     		case 5:
 				{
     				int i = 0;
-					foreach(Transform child in circleChildren){
+					foreach(Transform child in coreChildren){
 						// Vector3 offset = new Vector3(UnityEngine.Random.Range(-0.5f, 0.5f), UnityEngine.Random.Range(-0.5f, 0.5f), 0f);
 						Vector3 offset = fiveElements[i];
 						child.parent = destination.Find("elements");
@@ -550,7 +524,7 @@ public class PlayerScript : MonoBehaviour {
     		case 6:
 				{
     				int i = 0;
-					foreach(Transform child in circleChildren){
+					foreach(Transform child in coreChildren){
 						// Vector3 offset = new Vector3(UnityEngine.Random.Range(-0.5f, 0.5f), UnityEngine.Random.Range(-0.5f, 0.5f), 0f);
 						Vector3 offset = sixElements[i];
 						child.parent = destination.Find("elements");
@@ -560,7 +534,7 @@ public class PlayerScript : MonoBehaviour {
     			}
     			break;	
 			default:
-				foreach(Transform child in circleChildren){
+				foreach(Transform child in coreChildren){
 					Vector3 offset = new Vector3(UnityEngine.Random.Range(-0.5f, 0.5f), UnityEngine.Random.Range(-0.5f, 0.5f), 0f);
 					child.parent = destination.Find("elements");
 					child.GetComponent<ElementScript>().SwapAnimation(destination, offset, approxAnimTime);
