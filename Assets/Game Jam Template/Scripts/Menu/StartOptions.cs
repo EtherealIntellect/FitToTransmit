@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
@@ -26,7 +26,8 @@ public class StartOptions : MonoBehaviour {
 
 
     void Awake()
-	{
+	{	
+		DontDestroyOnLoad(this);
 		//Get a reference to ShowPanels attached to UI object
 		showPanels = GetComponent<ShowPanels> ();
 
@@ -135,6 +136,7 @@ public class StartOptions : MonoBehaviour {
 	{
 		//Hide the main menu UI element after fading out menu for start game in scene
 		showPanels.HideMenu();
+
 	}
 
 	public void StartGameInScene()
@@ -165,9 +167,10 @@ public class StartOptions : MonoBehaviour {
             canvasGroupToFadeAlpha.alpha = currentAlpha;
             yield return null;
         }
-
         HideDelayed();
         Debug.Log("Coroutine done. Game started in same scene! Put your game starting stuff here.");
+        canvasGroupToFadeAlpha.alpha = 0;
+
     }
 
     public void LoadHighscores(){

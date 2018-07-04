@@ -9,7 +9,7 @@ public class CircleBehaviour : MonoBehaviour {
 	public float widthOfVibe = 2;
 	public float timeOffset;
 	public float vibeFrequency = 3f;
-	bool hasCharge = false;
+	public bool hasCharge = false;
 
 	public Transform[] primaryElements;
 	public Transform[] secondaryElements;
@@ -33,6 +33,9 @@ public class CircleBehaviour : MonoBehaviour {
 	void Start () {
 		_startPosition = transform.position;
 		timeOffset = UnityEngine.Random.Range(0f, 2f);
+
+		// just in case I need the leve to start with a charged circle
+		if(hasCharge){ChargeUp();}
 
 		
 	}
@@ -91,46 +94,18 @@ public class CircleBehaviour : MonoBehaviour {
 
     }
 
-
-    // private Vector3 velocity = Vector3.zero;
-    // public float smoothTime = 0.5F;
     void FixedUpdate(){
-    	//fixing the exiting circles, standard size of 0.85
-/*    	for (int i = 0; i < transform.GetChild(0).childCount; i++)
-    	{
-    	    float dist = Vector3.Distance(transform.GetChild(0).GetChild(i).transform.position, transform.position);
-    	    // if (dist > 0.85f)
-    	    // {
-    	        transform.GetChild(0).GetChild(i).transform.position = Vector3.MoveTowards(transform.position, transform.GetChild(0).GetChild(i).transform.position, Time.deltaTime * 8);
-    	    // }
-    	}*/
-    	// widthOfVibe = Random.Range(1f, Mathf.Sin(Time.time)*2);
-    	//restoring if any circle scapes boundary
-    			//fixing the exiting circles, standard size of 0.85
-		// for (int i = 0; i < transform.Find("elements").childCount; i++)
-		{
-		    // float dist = Vector3.Distance(transform.GetChild(0).GetChild(i).transform.position, transform.position);
-		    // Vector3 direction = (transform.position - transform.GetChild(0).GetChild(i).transform.position);
-		    // direction = direction.normalized;
-		    //Debug.Log("the distance is ===== " + dist);
-		    // if (dist > 0.85f)
-		    {
-		        // transform.GetChild(0).GetChild(i).transform.position = Vector3.Lerp(transform.GetChild(0).GetChild(i).transform.position, transform.position + (transform.GetChild(0).GetChild(i).transform.position - transform.position), Time.deltaTime*0.01f);
-		        // transform.GetChild(0).GetChild(i).transform.position = transform.position + (transform.GetChild(0).GetChild(i).transform.position - transform.position);
-		        // transform.GetChild(0).GetChild(i).transform.position = Vector3.SmoothDamp(transform.GetChild(0).GetChild(i).transform.position, transform.position + (transform.GetChild(0).GetChild(i).transform.position - transform.position), ref velocity, smoothTime);
-		        // transform.GetChild(0).GetChild(i).GetComponent<Rigidbody2D>().AddForce(direction * 2, ForceMode2D.Force);
-		    }
-		}
     }
 
     void ChargeUp(){
     	hasCharge = true;
     	// do some animation or other visual effects to tell player this circle is charged up
     	transform.GetComponent<Animator>().SetBool("isCharged", true);
+    	SwapEvent();
     }
 
     void SwapEvent(){
-    	// change the color of this core to be the mix of its elements (replace channel color values of core with sum of each channel values of elements)
+    	// change the color of this core to be the mix of its elements (only if charged up) (replace channel color values of core with sum of each channel values of elements)
     	Transform elemnts = transform.Find("elements");
     	if(hasCharge){
 

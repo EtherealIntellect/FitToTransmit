@@ -63,7 +63,6 @@ public class ShowPanels : MonoBehaviour {
 	public void HideMenu()
 	{
 		menuPanel.SetActive (false);
-
 	}
 	
 	//Call this function to activate and display the Pause panel during game play

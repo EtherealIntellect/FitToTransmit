@@ -433,7 +433,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.19951622, y: 0.028158404}
   m_AnchorMax: {x: 0.80336225, y: 0.2782742}
-  m_AnchoredPosition: {x: 0, y: 0.000091552734}
+  m_AnchoredPosition: {x: 0, y: 0.00012207031}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &495029092
@@ -459,7 +459,7 @@ MonoBehaviour:
     m_Font: {fileID: 12800000, guid: 01cd679a1b9ee48bf9c546f6ce2cb97e, type: 3}
     m_FontSize: 26
     m_FontStyle: 0
-    m_BestFit: 0
+    m_BestFit: 1
     m_MinSize: 0
     m_MaxSize: 40
     m_Alignment: 4
@@ -468,8 +468,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: But don' get upset if you don't stay in the green all the time! That counter
-    is just for your own convenience. You can always turn it off in the settings menu.
+  m_Text: But don' get upset if you don't stay in the green all the time! It won't
+    stop you from passing the level.
 --- !u!222 &495029093
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -639,7 +639,7 @@ MonoBehaviour:
     m_Font: {fileID: 12800000, guid: 01cd679a1b9ee48bf9c546f6ce2cb97e, type: 3}
     m_FontSize: 26
     m_FontStyle: 0
-    m_BestFit: 0
+    m_BestFit: 1
     m_MinSize: 0
     m_MaxSize: 40
     m_Alignment: 4
@@ -1719,7 +1719,7 @@ Prefab:
     - target: {fileID: 114265330673914456, guid: 7984c5d784ed2534cb155e48b33c5976,
         type: 2}
       propertyPath: m_Text
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7984c5d784ed2534cb155e48b33c5976, type: 2}
