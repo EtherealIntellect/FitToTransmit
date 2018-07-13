@@ -27,7 +27,6 @@ public class StartOptions : MonoBehaviour {
 
     void Awake()
 	{	
-		DontDestroyOnLoad(this);
 		//Get a reference to ShowPanels attached to UI object
 		showPanels = GetComponent<ShowPanels> ();
 
@@ -55,7 +54,6 @@ public class StartOptions : MonoBehaviour {
 	{
 		// play button click sound
 		this.GetComponents<AudioSource>()[1].Play();
-
 		// fade background
 
 		//If changeMusicOnStart is true, fade out volume of music group of AudioMixer by calling FadeDown function of PlayMusic
@@ -68,6 +66,7 @@ public class StartOptions : MonoBehaviour {
 		//If changeScenes is true, start fading and change scenes halfway through animation when screen is blocked by FadeImage
 		if (menuSettingsData.nextSceneIndex != 0) 
 		{
+
 			//Use invoke to delay calling of LoadDelayed by half the length of fadeColorAnimationClip
 			StartCoroutine(LoadDelayed(menuSettingsData.menuFadeTime, sceneToStart));
 			// Invoke ("LoadDelayed", menuSettingsData.menuFadeTime);
@@ -120,7 +119,7 @@ public class StartOptions : MonoBehaviour {
 	}
 
 	IEnumerator LoadDelayed(float waitTime, string l_sceneToStart)
-	{
+	{	
 		yield return new WaitForSeconds(waitTime);
 		//Pause button now works if escape is pressed since we are no longer in Main menu.
 		inMainMenu = false;
@@ -168,7 +167,6 @@ public class StartOptions : MonoBehaviour {
             yield return null;
         }
         HideDelayed();
-        Debug.Log("Coroutine done. Game started in same scene! Put your game starting stuff here.");
         canvasGroupToFadeAlpha.alpha = 0;
 
     }
